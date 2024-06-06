@@ -74,7 +74,7 @@ export default function Home() {
   if (!content) return;
 
   return (
-    <main className="max-w-screen-md mx-auto px-5">
+    <main className="max-w-screen-lg mx-auto px-5">
       <label className="flex items-center gap-2 my-4 cursor-pointer">
         <input
           type="checkbox"

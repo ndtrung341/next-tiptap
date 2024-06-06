@@ -13,7 +13,11 @@ const MenuButtonBulletedList = ({ editor }: MenuButtonBulletListProps) => {
   const onBulletList = useCallback(() => editor.chain().focus().toggleBulletList().run(), [editor]);
 
   return (
-    <Toolbar.Button active={isBulletList} onClick={onBulletList}>
+    <Toolbar.Button
+      active={isBulletList}
+      disabled={!editor.can().toggleBulletList()}
+      onClick={onBulletList}
+    >
       <Icon name="List" />
     </Toolbar.Button>
   );

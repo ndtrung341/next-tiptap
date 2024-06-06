@@ -2,6 +2,7 @@ import React from "react";
 
 import { Editor } from "@tiptap/react";
 import { Toolbar } from "../ui/toolbar";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 import MenuButtonBold from "../controls/menu-button-bold";
 import MenuButtonItalic from "../controls/menu-button-italic";
@@ -18,7 +19,8 @@ import MenuButtonOrderedList from "../controls/menu-button-ordered-list";
 import MenuButtonBlockquote from "../controls/menu-button-blockquote";
 import MenuButtonLink from "../controls/menu-button-link";
 import MenuButtonImage from "../controls/menu-button-image";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
+import MenuButtonUndo from "../controls/menu-button-undo";
+import MenuButtonRedo from "../controls/menu-button-redo";
 
 export type FixedMenuProps = {
   editor: Editor;
@@ -28,6 +30,13 @@ const FixedMenu = ({ editor }: FixedMenuProps) => {
   return (
     <TooltipProvider disableHoverableContent delayDuration={500} skipDelayDuration={0}>
       <Toolbar.Wrapper>
+        <Toolbar.Group>
+          <MenuButtonUndo editor={editor} />
+          <MenuButtonRedo editor={editor} />
+        </Toolbar.Group>
+
+        <Toolbar.Divider />
+
         <Toolbar.Group>
           <MenuSelectHeading editor={editor} />
         </Toolbar.Group>
@@ -73,6 +82,3 @@ const FixedMenu = ({ editor }: FixedMenuProps) => {
 };
 
 export default FixedMenu;
-// export default React.memo(FixedMenu, (prevProps, nextProps) => {
-//   return prevProps.editor === nextProps.editor;
-// });

@@ -8,10 +8,12 @@ import Link from "./link";
 import Image from "./image-resize";
 
 export const extensions = [
+  Image,
   StarterKit.configure({
     horizontalRule: false,
     codeBlock: false,
     hardBreak: false,
+    dropcursor: {},
   }),
   Underline,
   TextAlign.configure({
@@ -24,8 +26,5 @@ export const extensions = [
   }),
   Link.configure({
     openOnClick: false,
-  }),
-  Image.configure({
-    allowBase64: false,
   }),
 ];

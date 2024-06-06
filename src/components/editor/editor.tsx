@@ -13,9 +13,12 @@ export interface EditorProps extends Partial<EditorOptions> {
 }
 
 export const Editor = forwardRef<HTMLDivElement, EditorProps>(
-  ({ className = "min-h-80", extensions, editable = true, content, editorProps, ...rest }, ref) => {
+  (
+    { className = "min-h-80", extensions = [], editable = true, content, editorProps, ...rest },
+    ref
+  ) => {
     const editor = useEditor({
-      extensions: [...builtInExtensions, ...(extensions ? extensions : [])],
+      extensions: [...builtInExtensions, ...extensions],
       content,
       editorProps: {
         attributes: {
@@ -51,7 +54,7 @@ export const Editor = forwardRef<HTMLDivElement, EditorProps>(
     return (
       <div ref={ref} className={className}>
         {editable && <FixedMenu editor={editor} />}
-        <EditorContent editor={editor}></EditorContent>
+        <EditorContent editor={editor} />
         <LinkBubble editor={editor} />
       </div>
     );
