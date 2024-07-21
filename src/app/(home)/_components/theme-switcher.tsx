@@ -5,7 +5,9 @@ import { SunIcon, MoonIcon } from 'lucide-react';
 
 const ThemeSwitcher = () => {
   const [isDarkMode, setIsDarkMode] = useState(
-    window.localStorage.getItem('theme') === 'dark'
+    typeof window !== 'undefined'
+      ? window.localStorage.getItem('theme') === 'dark'
+      : false
   );
 
   useEffect(() => {
