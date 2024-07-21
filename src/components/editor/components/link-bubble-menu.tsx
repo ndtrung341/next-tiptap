@@ -1,26 +1,35 @@
-import { BubbleMenu } from "@tiptap/react";
-import { Editor, Range, getMarkRange, getMarkType, posToDOMRect } from "@tiptap/core";
+import { BubbleMenu } from '@tiptap/react';
+import {
+  Editor,
+  Range,
+  getMarkRange,
+  getMarkType,
+  posToDOMRect
+} from '@tiptap/core';
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { sticky } from "tippy.js";
-import LinkPanelEdit from "./link-panel-edit";
-import LinkPanelPreview from "./link-panel-preview";
-import { useAttributes } from "../hooks/use-attributes";
+import { sticky } from 'tippy.js';
+import LinkPanelEdit from './link-panel-edit';
+import LinkPanelPreview from './link-panel-preview';
+import { useAttributes } from '../hooks/use-attributes';
 
 interface LinkBubbleProps {
   editor: Editor;
 }
 
 const LinkBubble = ({ editor }: LinkBubbleProps) => {
-  const { href }: { href: string } = useAttributes(editor, "link", { href: "", target: "" });
+  const { href }: { href: string } = useAttributes(editor, 'link', {
+    href: '',
+    target: ''
+  });
 
-  const initialUrl = useRef<string>("");
+  const initialUrl = useRef<string>('');
   const [isHide, setIsHide] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [pos, setPos] = useState<Range>({ from: -1, to: -1 });
 
-  const shouldShow = useCallback(() => editor.isActive("link"), [editor]);
+  const shouldShow = useCallback(() => editor.isActive('link'), [editor]);
 
   const handleEdit = useCallback(() => {
     setIsEdit(true);
@@ -28,8 +37,13 @@ const LinkBubble = ({ editor }: LinkBubbleProps) => {
 
   const onSetLink = useCallback(
     (url: string) => {
-      editor.chain().focus().extendMarkRange("link").setLink({ href: url, class: "link" }).run();
-      initialUrl.current = "";
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange('link')
+        .setLink({ href: url, class: 'link' })
+        .run();
+      initialUrl.current = '';
       setIsEdit(false);
     },
     [editor]
@@ -47,9 +61,9 @@ const LinkBubble = ({ editor }: LinkBubbleProps) => {
   const getReferenceClientRect = useCallback(() => {
     const { view, state } = editor;
     const {
-      selection: { from, to, $to },
+      selection: { from, to, $to }
     } = view.state;
-    const linkRange = getMarkRange($to, getMarkType("link", editor.schema));
+    const linkRange = getMarkRange($to, getMarkType('link', editor.schema));
 
     if (linkRange) {
       const node = view.nodeDOM(linkRange.from) as HTMLElement;
@@ -60,14 +74,15 @@ const LinkBubble = ({ editor }: LinkBubbleProps) => {
   }, [editor]);
 
   useEffect(() => {
-    const isLinkActive = editor.isActive("link");
+    const isLinkActive = editor.isActive('link');
 
     if (!isLinkActive) return;
 
     const prev = initialUrl.current;
     const current = href;
 
-    if (!current) setIsEdit(true); // add new link;
+    if (!current)
+      setIsEdit(true); // add new link;
     else if (prev !== current) setIsEdit(false); // update link
 
     initialUrl.current = current;
@@ -94,22 +109,26 @@ const LinkBubble = ({ editor }: LinkBubbleProps) => {
       updateDelay={0}
       tippyOptions={{
         offset: [0, 5],
-        placement: "bottom-start",
+        placement: 'bottom-start',
         popperOptions: {
-          modifiers: [{ name: "flip", enabled: false }],
+          modifiers: [{ name: 'flip', enabled: false }]
         },
         plugins: [sticky],
-        sticky: "popper",
+        sticky: 'popper',
         onHide() {
           setIsHide(true);
         },
-        getReferenceClientRect,
+        getReferenceClientRect
       }}
     >
       {isEdit ? (
         <LinkPanelEdit initial={href} isOpen={isEdit} onSetLink={onSetLink} />
       ) : (
-        <LinkPanelPreview url={href} onEdit={handleEdit} onRemove={() => onUnsetLink()} />
+        <LinkPanelPreview
+          url={href}
+          onEdit={handleEdit}
+          onRemove={() => onUnsetLink()}
+        />
       )}
     </BubbleMenu>
   );

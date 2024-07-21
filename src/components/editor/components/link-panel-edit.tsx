@@ -1,6 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Icon } from "../ui/icon";
-import { Button } from "../ui/button";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
+import { Icon } from '../ui/icon';
+import { Button } from '../ui/button';
 
 interface LinkPanelEditProps {
   initial: string;
@@ -10,7 +16,7 @@ interface LinkPanelEditProps {
 
 const LinkPanelEdit = ({ initial, isOpen, onSetLink }: LinkPanelEditProps) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const [url, setUrl] = useState<string>(initial || "");
+  const [url, setUrl] = useState<string>(initial || '');
 
   const isValidUrl = useMemo(() => /^(\S+):(\/\/)?\S+$/.test(url), [url]);
 
@@ -35,20 +41,20 @@ const LinkPanelEdit = ({ initial, isOpen, onSetLink }: LinkPanelEditProps) => {
   }, [isOpen]);
 
   return (
-    <div className="bg-white rounded-md border bg-popover text-popover-foreground p-2 shadow-md">
-      <form onSubmit={handleSubmit} className="flex items-center gap-2">
-        <label className="flex items-center gap-2 p-2 rounded-lg bg-neutral-100 cursor-text">
-          <Icon name="Link" className="flex-none text-black size-4" />
+    <div className='bg-white rounded-md border bg-popover text-popover-foreground p-2 shadow-md'>
+      <form onSubmit={handleSubmit} className='flex items-center gap-2'>
+        <label className='flex items-center gap-2 p-2 rounded-lg bg-neutral-100 cursor-text'>
+          <Icon name='Link' className='flex-none text-black size-4' />
           <input
             ref={inputRef}
-            type="url"
-            className="flex-1 bg-transparent outline-none text-black text-sm font-sans"
-            placeholder="Enter URL"
+            type='url'
+            className='flex-1 bg-transparent outline-none text-black text-sm font-sans'
+            placeholder='Enter URL'
             value={url}
             onChange={onChange}
           />
         </label>
-        <Button color="primary" size="sm" type="submit">
+        <Button color='primary' size='sm' type='submit'>
           Save
         </Button>
       </form>

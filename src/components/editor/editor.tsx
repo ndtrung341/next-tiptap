@@ -1,34 +1,56 @@
-"use client";
+'use client';
 
-import React, { forwardRef, useEffect } from "react";
-import { EditorContent, EditorOptions, useEditor } from "@tiptap/react";
-import { extensions as builtInExtensions } from "./extensions";
-import FixedMenu from "./components/fixed-menu";
-
-import "./styles/index.scss";
-import LinkBubble from "./components/link-bubble-menu";
-
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
+import { EditorContent, EditorOptions, useEditor } from '@tiptap/react';
+import { extensions as builtInExtensions } from './extensions';
+import FixedMenu from './components/fixed-menu';
+import './styles/index.scss';
+import LinkBubbleMenu from './components/link-bubble-menu';
+import { EditorInstance } from '.';
 export interface EditorProps extends Partial<EditorOptions> {
-  className?: string;
+  fixedMenuClassName?: string;
+  wrapperClassName?: string;
+  contentClassName?: string;
 }
 
-export const Editor = forwardRef<HTMLDivElement, EditorProps>(
+export type EditorRef = {
+  getEditor: () => EditorInstance;
+};
+
+export const Editor = forwardRef<EditorRef, EditorProps>(
   (
-    { className = "min-h-80", extensions = [], editable = true, content, editorProps, ...rest },
+    {
+      wrapperClassName,
+      fixedMenuClassName,
+      contentClassName,
+      extensions = [],
+      editable = true,
+      editorProps,
+      content,
+      ...rest
+    },
     ref
   ) => {
-    const editor = useEditor({
-      extensions: [...builtInExtensions, ...extensions],
-      content,
-      editorProps: {
-        attributes: {
-          class:
-            "pt-8 pb-6 px-8 prose prose-base prose-headings: prose-blue xl:prose-md prose-headings:scroll-mt-[80px] focus:outline-none",
+    const editor = useEditor(
+      {
+        extensions: [...builtInExtensions, ...extensions],
+        immediatelyRender: false,
+        content,
+        editorProps: {
+          attributes: {
+            class:
+              'pt-6 pb-6 px-6 prose prose-base prose-blue prose-headings:scroll-mt-[80px]'
+          },
+          ...editorProps
         },
-        ...editorProps,
+        ...rest
       },
-      ...rest,
-    });
+      []
+    );
+
+    useImperativeHandle(ref, () => ({
+      getEditor: () => editor
+    }));
 
     // Update editable state if/when it changes
     useEffect(() => {
@@ -41,26 +63,22 @@ export const Editor = forwardRef<HTMLDivElement, EditorProps>(
       queueMicrotask(() => editor.setEditable(editable));
     }, [editable, editor]);
 
-    //  useEffect(() => {
-    //    if (!editor || editor.isDestroyed || !initialContent) {
-    //      return;
-    //    }
-
-    //    queueMicrotask(() => editor.commands.setContent(initialContent, true));
-    //  }, [editor, initialContent]);
-
     if (!editor) return;
 
     return (
-      <div ref={ref} className={className}>
-        {editable && <FixedMenu editor={editor} />}
-        <EditorContent editor={editor} />
-        <LinkBubble editor={editor} />
+      <div className={wrapperClassName}>
+        {editable && (
+          <>
+            <FixedMenu editor={editor} className={fixedMenuClassName} />
+            <LinkBubbleMenu editor={editor} />
+          </>
+        )}
+        <EditorContent editor={editor} className={contentClassName} />
       </div>
     );
   }
 );
 
-Editor.displayName = "Editor";
+Editor.displayName = 'Editor';
 
 export default Editor;

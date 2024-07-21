@@ -1,27 +1,23 @@
-import { Editor } from "@tiptap/core";
-import React, { memo, useCallback } from "react";
-import { Toolbar } from "../ui/toolbar";
-import { useActive } from "../hooks/use-active";
-import { Icon } from "../ui/icon";
+import { Editor } from '@tiptap/core';
+import React, { memo, useCallback } from 'react';
+import { Toolbar } from '../ui/toolbar';
+import { useActive } from '../hooks/use-active';
+import { Icon } from '../ui/icon';
 
 interface MenuButtonOrderedListProps {
   editor: Editor;
 }
 
 const MenuButtonOrderedList = ({ editor }: MenuButtonOrderedListProps) => {
-  const isOrderedList = useActive(editor, "orderedList");
+  const isOrderedList = useActive(editor, 'orderedList');
   const onOrderedList = useCallback(
     () => editor.chain().focus().toggleOrderedList().run(),
     [editor]
   );
 
   return (
-    <Toolbar.Button
-      active={isOrderedList}
-      disabled={!editor.can().toggleOrderedList()}
-      onClick={onOrderedList}
-    >
-      <Icon name="ListOrdered" />
+    <Toolbar.Button active={isOrderedList} onClick={onOrderedList}>
+      <Icon name='ListOrdered' />
     </Toolbar.Button>
   );
 };

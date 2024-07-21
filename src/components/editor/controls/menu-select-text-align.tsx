@@ -1,14 +1,14 @@
-import React, { memo, useMemo } from "react";
-import { Toolbar } from "../ui/toolbar";
+import React, { memo, useMemo } from 'react';
+import { Toolbar } from '../ui/toolbar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Editor } from "@tiptap/core";
-import { Icon } from "../ui/icon";
-import { useActive } from "../hooks/use-active";
+  DropdownMenuTrigger
+} from '../ui/dropdown-menu';
+import { Editor } from '@tiptap/core';
+import { Icon } from '../ui/icon';
+import { useActive } from '../hooks/use-active';
 
 type MenuSelectTextAlign = {
   editor: Editor;
@@ -16,38 +16,38 @@ type MenuSelectTextAlign = {
 
 const options = [
   {
-    value: "left",
-    label: <Icon name="AlignLeft" />,
+    value: 'left',
+    label: <Icon name='AlignLeft' />
   },
   {
-    value: "center",
-    label: <Icon name="AlignCenter" />,
+    value: 'center',
+    label: <Icon name='AlignCenter' />
   },
   {
-    value: "right",
-    label: <Icon name="AlignRight" />,
+    value: 'right',
+    label: <Icon name='AlignRight' />
   },
   {
-    value: "justify",
-    label: <Icon name="AlignJustify" />,
-  },
+    value: 'justify',
+    label: <Icon name='AlignJustify' />
+  }
 ] as const;
 
 const MenuSelectTextAlign = ({ editor }: MenuSelectTextAlign) => {
-  const isAlignCenter = useActive(editor, { textAlign: "center" });
-  const isAlignRight = useActive(editor, { textAlign: "right" });
-  const isAlignJustify = useActive(editor, { textAlign: "justify" });
+  const isAlignCenter = useActive(editor, { textAlign: 'center' });
+  const isAlignRight = useActive(editor, { textAlign: 'right' });
+  const isAlignJustify = useActive(editor, { textAlign: 'justify' });
 
   const current = useMemo(() => {
-    let key = "left";
+    let key = 'left';
     if (isAlignCenter) {
-      key = "center";
+      key = 'center';
     }
     if (isAlignRight) {
-      key = "right";
+      key = 'right';
     }
     if (isAlignJustify) {
-      key = "justify";
+      key = 'justify';
     }
     return options.find((item) => item.value === key)!;
   }, [isAlignCenter, isAlignRight, isAlignJustify]);
@@ -59,13 +59,20 @@ const MenuSelectTextAlign = ({ editor }: MenuSelectTextAlign) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Toolbar.Button isDropdown={true} className="px-2" tooltip={"Text Align"}>
+        <Toolbar.Button
+          isDropdown={true}
+          className='px-2'
+          tooltip={'Text Align'}
+        >
           {current.label}
         </Toolbar.Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="min-w-fit">
+      <DropdownMenuContent align='start' className='min-w-fit'>
         {options.map((option) => (
-          <DropdownMenuItem key={option.value} onSelect={onAlignSelect(option.value)}>
+          <DropdownMenuItem
+            key={option.value}
+            onSelect={onAlignSelect(option.value)}
+          >
             {option.label}
           </DropdownMenuItem>
         ))}

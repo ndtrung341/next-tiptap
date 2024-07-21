@@ -1,6 +1,6 @@
-import { Editor } from "@tiptap/core";
-import { isEqual } from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { Editor } from '@tiptap/core';
+import { isEqual } from 'lodash';
+import { useEffect, useRef, useState } from 'react';
 
 type MapFn<T, R> = (arg: T) => R;
 
@@ -35,10 +35,10 @@ export function useAttributes<T, R>(
       prevValueCache.current = nextAttrs;
     };
 
-    editor.on("transaction", listener);
+    editor.on('transaction', listener);
 
     return () => {
-      editor.off("transaction", listener);
+      editor.off('transaction', listener);
     };
   }, [editor, defaultValue, attribute, mapFn]);
 

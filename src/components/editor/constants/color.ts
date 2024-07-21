@@ -1,28 +1,28 @@
 export const DEFAULT_COLORS = [
   {
     isBrightColor: false,
-    name: "black",
-    value: "#000000",
+    name: 'black',
+    value: '#000000'
   },
   {
     isBrightColor: true,
-    name: "grey",
-    value: "#808080",
+    name: 'grey',
+    value: '#808080'
   },
   {
     isBrightColor: true,
-    name: "white",
-    value: "#FFFFFF",
+    name: 'white',
+    value: '#FFFFFF'
   },
   {
     isBrightColor: false,
-    name: "red",
-    value: "#FF0000",
+    name: 'red',
+    value: '#FF0000'
   },
   {
     isBrightColor: false,
-    name: "orange",
-    value: "#FF9900",
+    name: 'orange',
+    value: '#FF9900'
   },
   //   {
   //     isBrightColor: true,
@@ -31,13 +31,13 @@ export const DEFAULT_COLORS = [
   //   },
   {
     isBrightColor: false,
-    name: "green",
-    value: "#00FF00",
+    name: 'green',
+    value: '#00FF00'
   },
   {
     isBrightColor: false,
-    name: "blue",
-    value: "#0000ff",
+    name: 'blue',
+    value: '#0000ff'
   },
   //   {
   //     isBrightColor: false,
@@ -46,9 +46,9 @@ export const DEFAULT_COLORS = [
   //   },
   {
     isBrightColor: false,
-    name: "magenta",
-    value: "#FF00FF",
-  },
+    name: 'magenta',
+    value: '#FF00FF'
+  }
 ];
 
 export type TColor = {
