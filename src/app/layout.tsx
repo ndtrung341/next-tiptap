@@ -17,8 +17,7 @@ export const metadata: Metadata = {
     title: 'Next Tiptap',
     description:
       'A modern WYSIWYG rich text editor based on tiptap and shadcn ui for ReactJs/NextJs',
-    siteName: 'Next Tiptap',
-    locale: 'en'
+    siteName: 'Next Tiptap'
   }
 };
 
