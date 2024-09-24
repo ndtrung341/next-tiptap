@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description:
     'A modern WYSIWYG rich text editor based on tiptap and shadcn ui for ReactJs/NextJs',
   keywords: 'Tiptap, WYSIWYG, Rich Text Editor, ReactJS, NextJS',
+  metadataBase: new URL(`https://next-tiptap.vercel.app`),
   openGraph: {
     type: 'website',
     url: `https://next-tiptap.vercel.app`,
