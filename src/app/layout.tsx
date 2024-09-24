@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       'A modern WYSIWYG rich text editor based on tiptap and shadcn ui for ReactJs/NextJs',
     siteName: 'Next Tiptap',
     locale: 'en_US',
-    images: '/opengraph-image.png'
+    images: '/opengraph-image.jpg'
   }
 };
 
