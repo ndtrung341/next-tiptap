@@ -1,8 +1,6 @@
 import React, { Suspense } from 'react';
 import PostDetail from './_components/post-detail';
-import { sample } from '@/sample-data';
 import Image from 'next/image';
-import { Post } from '@/types';
 
 const getImageRandom = async (): Promise<string> => {
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;

@@ -14,7 +14,6 @@ export default function Home() {
   const editorRef = useRef<EditorRef>();
 
   const [isSaved, setIsSaved] = useState(true);
-  //   const [isFetching, setIsFetching] = useState(true);
   const { post, isFetching } = usePost();
 
   const { control, reset, watch, setValue } = useForm<Post>({
@@ -27,16 +26,6 @@ export default function Home() {
   const titleWatch = watch('title');
   const contentWatch = watch('content');
 
-  //   useEffect(() => {
-  //     setIsFetching(true);
-
-  //     (async () => {
-  //       const data = await fetchData();
-  //       setIsFetching(false);
-  //       reset({ ...data });
-  //     })();
-  //   }, []);
-
   useEffect(() => {
     if (isFetching) return;
     reset({ ...post });
@@ -46,21 +35,6 @@ export default function Home() {
     setIsSaved(false);
     persistDebounce({ title: titleWatch, content: contentWatch });
   }, [titleWatch, contentWatch]);
-
-  // Simulate fetch data
-  // get data from localstorage
-  const fetchData = (): Promise<Post> => {
-    return new Promise<Post>((resolve) => {
-      setTimeout(() => {
-        const post: Post | null = JSON.parse(
-          window.localStorage.getItem('post') ?? null
-        );
-        const title = post ? post?.title : sample.title;
-        const content = post?.content || sample.content;
-        resolve({ content, title });
-      }, 200);
-    });
-  };
 
   // store data in localstorage
   const persistDebounce = useCallback(
