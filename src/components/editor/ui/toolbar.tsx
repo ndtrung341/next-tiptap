@@ -52,7 +52,7 @@ export type ToolbarGroupProps = {} & HTMLProps<HTMLDivElement>;
 const ToolbarGroup = forwardRef<HTMLDivElement, ToolbarDividerProps>(
   ({ className, ...rest }, ref) => {
     const groupClassName = cn(
-      'flex items-center gap-1 first:ml-0 last:mr-0',
+      'flex items-center gap-1 mx-1 first:ml-0 last:mr-0',
       className
     );
 

@@ -14,7 +14,7 @@ export const isTextSelected = (editor: Editor) => {
   // So we check also for an empty text size.
   const isEmptyTextBlock =
     !doc.textBetween(from, to).length && isTextSelection(selection);
-  console.log({ empty, isEmptyTextBlock, edit: editor.isEditable });
+  //   console.log({ empty, isEmptyTextBlock, edit: editor.isEditable });
   if (empty || isEmptyTextBlock || !editor.isEditable) {
     return false;
   }

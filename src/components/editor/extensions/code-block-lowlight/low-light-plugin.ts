@@ -5,6 +5,7 @@ import { findChildren } from '@tiptap/core';
 import { loadLanguage } from '../../lib/code-block-language-loader';
 // @ts-ignore
 import highlight from 'highlight.js/lib/core';
+import { CODE_BLOCK_LANGUAGUE_SYNTAX_DEFAULT } from '../../constants/code_block_languages';
 
 export const LowlightPluginKey = new PluginKey('lowlight');
 
@@ -104,9 +105,13 @@ export function LowlightPlugin({
           );
 
           const languages = [
-            ...codeBlocks.map((block) => block.node.attrs.language),
+            ...codeBlocks.map(
+              (block) =>
+                block.node.attrs.language || CODE_BLOCK_LANGUAGUE_SYNTAX_DEFAULT
+            ),
             defaultLanguage
           ];
+
           await Promise.all(
             languages.map((language) => loadLanguage(language, lowlight))
           );
@@ -126,7 +131,11 @@ export function LowlightPlugin({
           // got loaded.
           const loadStates = await Promise.all(
             codeBlocks.flatMap((block) => [
-              loadLanguage(block.node.attrs.language, lowlight)
+              loadLanguage(
+                block.node.attrs.language ||
+                  CODE_BLOCK_LANGUAGUE_SYNTAX_DEFAULT,
+                lowlight
+              )
             ])
           );
           const didLoadSomething = loadStates.includes(true);

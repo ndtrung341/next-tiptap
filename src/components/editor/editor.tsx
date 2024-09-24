@@ -1,16 +1,24 @@
 'use client';
 
-import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
 import { EditorContent, EditorOptions, useEditor } from '@tiptap/react';
 import { extensions as builtInExtensions } from './extensions';
 import FixedMenu from './components/fixed-menu';
 import './styles/index.scss';
 import LinkBubbleMenu from './components/link-bubble-menu';
 import { EditorInstance } from '.';
+import { getToCItems, TocItem } from './lib/table-of-contents';
 export interface EditorProps extends Partial<EditorOptions> {
   fixedMenuClassName?: string;
   wrapperClassName?: string;
   contentClassName?: string;
+  onUpdateToC?: (items: TocItem[]) => void;
 }
 
 export type EditorRef = {
@@ -27,6 +35,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
       editable = true,
       editorProps,
       content,
+      onUpdateToC,
       ...rest
     },
     ref
@@ -48,9 +57,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
       []
     );
 
-    useImperativeHandle(ref, () => ({
-      getEditor: () => editor
-    }));
+    useImperativeHandle(
+      ref,
+      () => ({
+        getEditor: () => editor
+      }),
+      [{}]
+    );
 
     // Update editable state if/when it changes
     useEffect(() => {
@@ -63,7 +76,13 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
       queueMicrotask(() => editor.setEditable(editable));
     }, [editable, editor]);
 
-    if (!editor) return;
+    useEffect(() => {
+      if (!editor || editor.isDestroyed) return;
+      const items = getToCItems(editor);
+      onUpdateToC?.(items);
+    }, [editor]);
+
+    if (!editor) return null;
 
     return (
       <div className={wrapperClassName}>

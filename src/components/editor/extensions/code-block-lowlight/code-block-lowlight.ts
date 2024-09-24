@@ -25,7 +25,8 @@ export default BaseCodeBlockLowlight.extend({
 
   addInputRules() {
     const findAndLoadLanguage = (match: ExtendedRegExpMatchArray) => {
-      const { syntax } = findLanguage(match[1]);
+      const language = findLanguage(match[1]);
+      const syntax = language?.syntax || CODE_BLOCK_LANGUAGUE_SYNTAX_DEFAULT;
       loadLanguage(syntax, lowlight);
       return { language: syntax };
     };

@@ -74,3 +74,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+body {
+  min-height: 100vh;
+  background-image: linear-gradient(
+      rgba(250, 247, 238, 0.8),
+      rgba(250, 247, 238, 0.8)
+        /* rgba(247, 245, 243, 0.75),
+      rgba(247, 245, 243, 0.75) */
+    ),
+    url('/background.svg');
+}
+.dark {
+  color: rgba(247, 245, 243, 0.75);
+}
+.dark body {
+  background-color: rgb(24, 25, 26);
+  background-image: linear-gradient(
+      /* rgba(33, 33, 33, 0.75),
+      rgba(33, 33, 33, 0.75), */
+        rgba(24, 25, 26, 0.85),
+      rgba(24, 25, 26, 0.85)
+    ),
+    url('/background.svg');
+}

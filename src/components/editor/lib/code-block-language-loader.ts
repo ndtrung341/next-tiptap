@@ -35,7 +35,6 @@ export async function loadLanguage(
   lowlight: ReturnType<typeof createLowlight>
 ) {
   if (lowlight.registered(languageName)) return false;
-
   try {
     const { default: language } = await languagesLoader[languageName]?.();
     lowlight.register(languageName, language);
@@ -47,7 +46,7 @@ export async function loadLanguage(
 }
 
 export function findLanguage(value: string | undefined) {
-  const lowercase = value.toLowerCase() || CODE_BLOCK_LANGUAGUE_SYNTAX_DEFAULT;
+  const lowercase = value?.toLowerCase() || CODE_BLOCK_LANGUAGUE_SYNTAX_DEFAULT;
   const language = CODE_BLOCK_LANGUAGUES.find(
     (language) =>
       language.syntax === lowercase ||

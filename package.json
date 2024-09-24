@@ -13,6 +13,7 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tailwindcss/typography": "^0.5.13",
+    "@tiptap/extension-character-count": "^2.6.5",
     "@tiptap/extension-code-block-lowlight": "^2.4.0",
     "@tiptap/extension-color": "^2.4.0",
     "@tiptap/extension-highlight": "^2.4.0",
@@ -30,15 +31,15 @@
     "lodash": "^4.17.21",
     "lowlight": "^3.1.0",
     "lucide-react": "^0.381.0",
-    "next": "14.2.3",
+    "next": "^14.2.13",
     "react": "^18",
     "react-colorful": "^5.6.1",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
     "sass": "^1.77.4",
+    "sharp": "^0.33.5",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
-    "uuid": "^9.0.1"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.4",

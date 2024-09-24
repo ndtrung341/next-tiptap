@@ -2,25 +2,22 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Editor, EditorRef } from '@/components/editor';
-import { sampleContent } from '@/sample-content';
 import { Controller, useForm } from 'react-hook-form';
 import { debounce } from 'lodash';
-import Modal from './_components/modal';
-import Reader from './_components/reader';
-
-export type Post = {
-  title: string;
-  content: string;
-};
+import { useRouter } from 'next/navigation';
+import { Post } from '@/types';
+import { sample } from '@/sample-data';
+import { usePost } from '@/hooks/usePost';
 
 export default function Home() {
+  const router = useRouter();
   const editorRef = useRef<EditorRef>();
 
   const [isSaved, setIsSaved] = useState(true);
-  const [isPreview, setIsPreview] = useState(false);
-  const [isFetching, setIsFetching] = useState(true);
+  //   const [isFetching, setIsFetching] = useState(true);
+  const { post, isFetching } = usePost();
 
-  const { control, reset, watch } = useForm<Post>({
+  const { control, reset, watch, setValue } = useForm<Post>({
     defaultValues: {
       content: '',
       title: ''
@@ -30,17 +27,22 @@ export default function Home() {
   const titleWatch = watch('title');
   const contentWatch = watch('content');
 
+  //   useEffect(() => {
+  //     setIsFetching(true);
+
+  //     (async () => {
+  //       const data = await fetchData();
+  //       setIsFetching(false);
+  //       reset({ ...data });
+  //     })();
+  //   }, []);
+
   useEffect(() => {
-    setIsFetching(true);
+    if (isFetching) return;
+    reset({ ...post });
+  }, [isFetching]);
 
-    (async () => {
-      const data = await fetchData();
-      reset({ ...data });
-      setIsFetching(false);
-    })();
-  }, []);
-
-  React.useEffect(() => {
+  useEffect(() => {
     setIsSaved(false);
     persistDebounce({ title: titleWatch, content: contentWatch });
   }, [titleWatch, contentWatch]);
@@ -48,13 +50,13 @@ export default function Home() {
   // Simulate fetch data
   // get data from localstorage
   const fetchData = (): Promise<Post> => {
-    return new Promise((resolve) => {
+    return new Promise<Post>((resolve) => {
       setTimeout(() => {
         const post: Post | null = JSON.parse(
           window.localStorage.getItem('post') ?? null
         );
-        const title = post ? post?.title : 'Next.js + Tiptap Editor';
-        const content = post?.content || sampleContent;
+        const title = post ? post?.title : sample.title;
+        const content = post?.content || sample.content;
         resolve({ content, title });
       }, 200);
     });
@@ -69,34 +71,28 @@ export default function Home() {
     []
   );
 
-  //   useEffect(() => {
-  //     if (isFetching) return;
-  //
-  //    queueMicrotask(() => {
-  //      const editor = editorRef.current.getEditor();
-  //      const currentSelection = editor.state.selection;
-  //      editor
-  //        .chain()
-  //        .setContent(blog.content)
-  //        .setTextSelection(currentSelection)
-  //        .run();
-  //    });
-  //  }, [isFetching]);
+  const onPreview = () => {
+    router.push('/post');
+  };
+
+  //  useEffect(() => {
+  //    if (isFetching) return;
+
+  //   queueMicrotask(() => {
+  //     const editor = editorRef.current.getEditor();
+  //     const currentSelection = editor.state.selection;
+  //     editor
+  //       .chain()
+  //       .setContent(blog.content)
+  //       .setTextSelection(currentSelection)
+  //       .run();
+  //   });
+  // }, [isFetching]);
 
   return (
     <React.Fragment>
-      <Modal open={isPreview} setOpen={setIsPreview}>
-        <Reader post={{ title: titleWatch, content: contentWatch }} />
-      </Modal>
-
       <div className='h-screen flex p-4'>
-        <div className='max-w-screen-md w-full mx-auto relative'>
-          {!isFetching && (
-            <div className='absolute left-full ml-6 top-0 h-10 w-24 rounded-md overflow-hidden cursor-pointer pointer-events-none flex items-center justify-center transition-all duration-200 bg-zinc-200 dark:bg-transparent border-2 border-zinc-300 80 text-foreground'>
-              {isSaved ? 'Saved' : 'Unsaved'}
-            </div>
-          )}
-
+        <div className='max-w-screen-lg w-full mx-auto relative'>
           <div className='flex flex-col h-full space-y-4'>
             <Controller
               control={control}
@@ -115,46 +111,46 @@ export default function Home() {
             />
 
             {!isFetching && (
-              <Controller
-                control={control}
-                name='content'
-                render={({ field }) => {
-                  return (
-                    <div className='flex flex-col flex-1 space-y-2 h-full overflow-hidden'>
-                      <label className='text-base font-bold text-muted-foreground'>
-                        Content
-                      </label>
-                      <div className='border bg-background shadow-md rounded-lg flex flex-1 h-full overflow-auto '>
-                        <Editor
-                          ref={editorRef}
-                          wrapperClassName='flex flex-col h-full overflow-hidden'
-                          contentClassName='h-full overflow-auto'
-                          fixedMenuClassName='relative z-0 inset-x-0 w-full bg-background text-background'
-                          content={field.value}
-                          editorProps={{
-                            attributes: {
-                              class:
-                                'pt-6 pb-6 px-6 prose prose-base prose-blue prose-headings:scroll-mt-[80px] dark:prose-invert'
-                            }
-                          }}
-                          onUpdate={({ editor }) => {
-                            const html = !editor.isEmpty
-                              ? editor.getHTML()
-                              : '';
-                            field.onChange(html);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  );
-                }}
-              />
+              //   <Controller
+              //     control={control}
+              //     name='content'
+              //     render={({ field }) => {
+              //       return (
+              <div className='flex flex-col flex-1 space-y-2 h-full overflow-hidden'>
+                <label className='text-base font-bold text-muted-foreground'>
+                  Content
+                </label>
+                <div className='border bg-background shadow-md rounded-lg flex flex-1 h-full overflow-auto '>
+                  <Editor
+                    ref={editorRef}
+                    wrapperClassName='flex flex-col h-full overflow-hidden'
+                    contentClassName='h-full overflow-auto'
+                    fixedMenuClassName='relative z-0 inset-x-0 w-full bg-background text-background'
+                    content={post.content}
+                    editorProps={{
+                      attributes: {
+                        class:
+                          'pt-6 pb-6 px-6 prose prose-base prose-blue prose-headings:scroll-mt-[80px] dark:prose-invert'
+                      }
+                    }}
+                    onUpdate={({ editor }) => {
+                      const html = !editor.isEmpty ? editor.getHTML() : '';
+                      setValue('content', html);
+                      //  field.onChange(html);
+                    }}
+                  />
+                </div>
+              </div>
+              //       );
+              //     }}
+              //   />
             )}
 
             <button
               className='bg-indigo-700 text-white h-10 text-sm rounded-md'
               disabled={!isSaved}
-              onClick={() => setIsPreview(true)}
+              //   onClick={() => setIsPreview(true)}
+              onClick={onPreview}
             >
               Preview
             </button>
