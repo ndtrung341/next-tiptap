@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata | null> {
           'A modern WYSIWYG rich text editor based on tiptap and shadcn ui for ReactJs/NextJs',
         siteName: 'Next Tiptap',
         locale: 'en_US',
-        images: [image]
+        images: image
       }
     };
   } catch (error: any) {

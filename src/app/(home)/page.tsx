@@ -7,24 +7,6 @@ import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { Post } from '@/types';
 import { usePost } from '@/hooks/usePost';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Next Tiptap',
-  description:
-    'A modern WYSIWYG rich text editor based on tiptap and shadcn ui for ReactJs/NextJs',
-  keywords: 'Tiptap, WYSIWYG, Rich Text Editor, ReactJS, NextJS',
-  metadataBase: new URL(`https://next-tiptap.vercel.app`),
-  openGraph: {
-    type: 'website',
-    url: `https://next-tiptap.vercel.app`,
-    title: 'Next Tiptap',
-    description:
-      'A modern WYSIWYG rich text editor based on tiptap and shadcn ui for ReactJs/NextJs',
-    siteName: 'Next Tiptap',
-    locale: 'en_US'
-  }
-};
 
 export default function Home() {
   const router = useRouter();
