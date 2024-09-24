@@ -5,6 +5,7 @@ import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
 import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
+import CharacterCount from '@tiptap/extension-character-count';
 
 import Link from './link';
 import Image from './image-resize';
@@ -38,5 +39,6 @@ export const extensions = [
   Placeholder.configure({
     placeholder: 'Type or paste your content here!'
   }),
-  CodeBlockLowlight
+  CodeBlockLowlight,
+  CharacterCount
 ];

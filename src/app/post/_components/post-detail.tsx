@@ -4,6 +4,7 @@ import { Editor, EditorRef } from '@/components/editor';
 import TableOfContent from '@/components/editor/components/table-of-content';
 import { TocItem } from '@/components/editor/lib/table-of-contents';
 import { usePost } from '@/hooks/usePost';
+import { CalendarDays, Clock } from 'lucide-react';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -67,11 +68,43 @@ const PostDetail = ({ thumb }: PostDetailProps) => {
     };
   }, [tocItems]);
 
+  const readingTime = () => {
+    const wpm = 225;
+    const words = editorRef.current
+      ?.getEditor()
+      ?.storage.characterCount.words();
+    const time = Math.ceil(words / wpm);
+    return time;
+  };
+
   if (isFetching) return;
 
   return (
     <>
-      <h1 className='text-4xl leading-relaxed my-10 font-bold'>{post.title}</h1>
+      <h1 className='text-4xl leading-relaxed mt-10 font-bold'>{post.title}</h1>
+
+      <div className='flex items-center mt-4'>
+        <div className='flex items-center gap-3'>
+          <Image
+            src={'/avatar.jpg'}
+            width={36}
+            height={36}
+            alt=''
+            className='rounded-full'
+          />
+          <span className='font-semibold text-lg'>Trung Handsome</span>
+        </div>
+        <div className='h-5 w-0.5 bg-white mx-4'></div>
+        <div className='flex items-center gap-2 text-sm'>
+          <CalendarDays size={18} />
+          <span>Sep, 24 2024</span>
+        </div>
+        <div className='h-5 w-0.5 bg-white mx-4'></div>
+        <div className='flex items-center gap-2 text-sm'>
+          <Clock size={18} />
+          <span>{readingTime()} min read</span>
+        </div>
+      </div>
 
       <div className='mx-auto mt-12 max-w-[50rem] xl:grid xl:max-w-none xl:grid-cols-[50rem_1fr] xl:items-start xl:gap-x-20'>
         <div className='flex flex-col'>
@@ -82,6 +115,7 @@ const PostDetail = ({ thumb }: PostDetailProps) => {
             <Editor
               ref={editorRef}
               editable={false}
+              displayWordsCount={false}
               content={post.content}
               onUpdateToC={(items) => setTocItems(items)}
               editorProps={{

@@ -6,7 +6,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { Post } from '@/types';
-import { sample } from '@/sample-data';
 import { usePost } from '@/hooks/usePost';
 
 export default function Home() {
@@ -67,7 +66,7 @@ export default function Home() {
     <React.Fragment>
       <div className='h-screen flex p-4'>
         <div className='max-w-screen-lg w-full mx-auto relative'>
-          <div className='flex flex-col h-full space-y-4'>
+          <div className='h-full space-y-4'>
             <Controller
               control={control}
               name='title'
@@ -85,21 +84,19 @@ export default function Home() {
             />
 
             {!isFetching && (
-              //   <Controller
-              //     control={control}
-              //     name='content'
-              //     render={({ field }) => {
-              //       return (
-              <div className='flex flex-col flex-1 space-y-2 h-full overflow-hidden'>
+              //   <div className='flex flex-col flex-1 space-y-2 h-full overflow-hidden'>
+              <div className='flex flex-col space-y-2'>
                 <label className='text-base font-bold text-muted-foreground'>
                   Content
                 </label>
-                <div className='border bg-background shadow-md rounded-lg flex flex-1 h-full overflow-auto '>
+                {/* <div className='border bg-background shadow-md rounded-lg flex flex-1 h-full overflow-auto '> */}
+                <div className='border bg-background shadow-md rounded-lg'>
                   <Editor
                     ref={editorRef}
-                    wrapperClassName='flex flex-col h-full overflow-hidden'
-                    contentClassName='h-full overflow-auto'
-                    fixedMenuClassName='relative z-0 inset-x-0 w-full bg-background text-background'
+                    //   wrapperClassName='flex flex-col h-full overflow-hidden'
+                    //   contentClassName='h-full overflow-auto'
+                    //   fixedMenuClassName='relative z-0 inset-x-0 w-full bg-background text-background'
+                    fixedMenuClassName='z-10 inset-x-0 w-full bg-background sticky top-0'
                     content={post.content}
                     editorProps={{
                       attributes: {
@@ -110,20 +107,15 @@ export default function Home() {
                     onUpdate={({ editor }) => {
                       const html = !editor.isEmpty ? editor.getHTML() : '';
                       setValue('content', html);
-                      //  field.onChange(html);
                     }}
                   />
                 </div>
               </div>
-              //       );
-              //     }}
-              //   />
             )}
 
             <button
-              className='bg-indigo-700 text-white h-10 text-sm rounded-md'
+              className='bg-indigo-700 text-white h-10 text-sm rounded-md w-full'
               disabled={!isSaved}
-              //   onClick={() => setIsPreview(true)}
               onClick={onPreview}
             >
               Preview

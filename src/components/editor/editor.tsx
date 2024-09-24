@@ -1,23 +1,19 @@
 'use client';
 
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState
-} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { EditorContent, EditorOptions, useEditor } from '@tiptap/react';
 import { extensions as builtInExtensions } from './extensions';
 import FixedMenu from './components/fixed-menu';
-import './styles/index.scss';
 import LinkBubbleMenu from './components/link-bubble-menu';
 import { EditorInstance } from '.';
 import { getToCItems, TocItem } from './lib/table-of-contents';
+
+import './styles/index.scss';
 export interface EditorProps extends Partial<EditorOptions> {
   fixedMenuClassName?: string;
   wrapperClassName?: string;
   contentClassName?: string;
+  displayWordsCount?: boolean;
   onUpdateToC?: (items: TocItem[]) => void;
 }
 
@@ -35,6 +31,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
       editable = true,
       editorProps,
       content,
+      displayWordsCount = true,
       onUpdateToC,
       ...rest
     },
@@ -48,7 +45,7 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
         editorProps: {
           attributes: {
             class:
-              'pt-6 pb-6 px-6 prose prose-base prose-blue prose-headings:scroll-mt-[80px]'
+              'py-6 px-8 prose prose-base prose-blue prose-headings:scroll-mt-[80px]'
           },
           ...editorProps
         },
@@ -57,13 +54,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
       []
     );
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        getEditor: () => editor
-      }),
-      [{}]
-    );
+    useImperativeHandle(ref, () => ({
+      getEditor: () => editor
+    }));
 
     // Update editable state if/when it changes
     useEffect(() => {
@@ -82,6 +75,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
       onUpdateToC?.(items);
     }, [editor]);
 
+    useEffect(() => {
+      return () => {
+        editor?.destroy();
+      };
+    }, []);
+
     if (!editor) return null;
 
     return (
@@ -93,6 +92,12 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
           </>
         )}
         <EditorContent editor={editor} className={contentClassName} />
+
+        {displayWordsCount && (
+          <div className='sticky bottom-0 bg-background text-zinc-800 dark:text-slate-200 text-sm font-bold border-t border-t-border px-4 py-3 text-right'>
+            {editor.storage.characterCount.words()} words
+          </div>
+        )}
       </div>
     );
   }
