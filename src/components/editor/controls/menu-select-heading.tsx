@@ -77,9 +77,9 @@ const MenuSelectHeading = ({ editor }: MenuSelectHeading) => {
   const onHeadingSelect = useCallback(
     (level: OptionValue) => {
       if (typeof level === 'number') {
-        editor.chain().focus().toggleHeading({ level }).run();
+        editor.chain().setHeading({ level }).focus().run();
       } else {
-        editor.chain().focus().setParagraph().run();
+        editor.chain().setParagraph().focus().run();
       }
     },
     [editor]
@@ -92,7 +92,10 @@ const MenuSelectHeading = ({ editor }: MenuSelectHeading) => {
           <span className='flex flex-1'>{current.label}</span>
         </Toolbar.Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='start'>
+      <DropdownMenuContent
+        align='start'
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         {options.map((option) => (
           <DropdownMenuItem
             key={option.value}

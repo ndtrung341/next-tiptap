@@ -96,12 +96,13 @@ export default function Home() {
                     //   wrapperClassName='flex flex-col h-full overflow-hidden'
                     //   contentClassName='h-full overflow-auto'
                     //   fixedMenuClassName='relative z-0 inset-x-0 w-full bg-background text-background'
-                    fixedMenuClassName='z-10 inset-x-0 w-full bg-background sticky top-0'
+                    toolBarClassName='z-50 inset-x-0 w-full bg-toolbar sticky top-0'
+                    footerClassName='bg-toolbar'
                     content={post.content}
                     editorProps={{
                       attributes: {
                         class:
-                          'pt-6 pb-6 px-6 prose prose-base prose-blue prose-headings:scroll-mt-[80px] dark:prose-invert'
+                          'py-6 px-8 prose prose-base prose-blue prose-headings:scroll-mt-[80px] dark:prose-invert'
                       }
                     }}
                     onUpdate={({ editor }) => {

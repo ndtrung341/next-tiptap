@@ -6,6 +6,7 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+    --toolbar: 206 64% 98%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -36,8 +37,10 @@
   }
 
   .dark {
+    /* --background: 222 28% 7%; */
     --background: 222 28% 7%;
     --foreground: 210 40% 98%;
+    --toolbar: 213 20% 11%;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -89,12 +92,13 @@ body {
   color: rgba(247, 245, 243, 0.75);
 }
 .dark body {
-  background-color: rgb(24, 25, 26);
   background-image: linear-gradient(
       /* rgba(33, 33, 33, 0.75),
       rgba(33, 33, 33, 0.75), */
-        rgba(24, 25, 26, 0.85),
-      rgba(24, 25, 26, 0.85)
+        /* rgba(24, 25, 26, 0.85),
+      rgba(24, 25, 26, 0.85), */
+        rgb(13, 16, 23, 0.8),
+      rgb(13, 16, 23, 0.8)
     ),
     url('/background.svg');
 }

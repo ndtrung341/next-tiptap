@@ -10,9 +10,10 @@ import { getToCItems, TocItem } from './lib/table-of-contents';
 
 import './styles/index.scss';
 export interface EditorProps extends Partial<EditorOptions> {
-  fixedMenuClassName?: string;
+  toolBarClassName?: string;
   wrapperClassName?: string;
   contentClassName?: string;
+  footerClassName?: string;
   displayWordsCount?: boolean;
   onUpdateToC?: (items: TocItem[]) => void;
 }
@@ -25,8 +26,9 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
   (
     {
       wrapperClassName,
-      fixedMenuClassName,
+      toolBarClassName,
       contentClassName,
+      footerClassName,
       extensions = [],
       editable = true,
       editorProps,
@@ -87,14 +89,17 @@ export const Editor = forwardRef<EditorRef, EditorProps>(
       <div className={wrapperClassName}>
         {editable && (
           <>
-            <FixedMenu editor={editor} className={fixedMenuClassName} />
+            <FixedMenu editor={editor} className={toolBarClassName} />
             <LinkBubbleMenu editor={editor} />
           </>
         )}
+
         <EditorContent editor={editor} className={contentClassName} />
 
-        {displayWordsCount && (
-          <div className='sticky bottom-0 bg-background text-zinc-800 dark:text-slate-200 text-sm font-bold border-t border-t-border px-4 py-3 text-right'>
+        {editable && displayWordsCount && (
+          <div
+            className={`sticky bottom-0 text-sm font-bold border-t border-t-border px-4 py-3 text-right ${footerClassName}`}
+          >
             {editor.storage.characterCount.words()} words
           </div>
         )}

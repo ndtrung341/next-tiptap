@@ -67,7 +67,11 @@ const MenuSelectTextAlign = ({ editor }: MenuSelectTextAlign) => {
           {current.label}
         </Toolbar.Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='start' className='min-w-fit'>
+      <DropdownMenuContent
+        align='start'
+        className='min-w-fit'
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         {options.map((option) => (
           <DropdownMenuItem
             key={option.value}
