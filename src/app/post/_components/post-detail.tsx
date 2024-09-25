@@ -22,6 +22,41 @@ const PostDetail = ({ thumb }: PostDetailProps) => {
   const editorRef = useRef<EditorRef>(null);
   const contentRef = useRef<HTMLElement>(null);
 
+  const handleItemClick = (e: any, id: string) => {
+    e.preventDefault();
+    const editor = editorRef.current.getEditor();
+    const element = editor.view.dom.querySelector(`[id="${id}"]`);
+
+    const elementTop = element.getBoundingClientRect().top + window.scrollY;
+    const offset = window.innerHeight * 0.05;
+
+    window.scrollTo({
+      top: elementTop - offset,
+      behavior: 'smooth'
+    });
+  };
+
+  const calculateReadingTime = () => {
+    const wpm = 225;
+    const words = editorRef.current
+      ?.getEditor()
+      ?.storage.characterCount.words();
+    const time = Math.ceil(words / wpm);
+    return time;
+  };
+
+  const calculateReadingProgress = () => {
+    const element = contentRef.current;
+    const elementRect = element.getBoundingClientRect();
+    const progress = Math.min(
+      (Math.abs(elementRect.top) /
+        (element.offsetHeight - window.innerHeight)) *
+        100,
+      100
+    );
+    setProgress(progress);
+  };
+
   useEffect(() => {
     if (tocItems.length === 0) return;
 
@@ -46,7 +81,7 @@ const PostDetail = ({ thumb }: PostDetailProps) => {
             setTocItemActive(item);
           }
         }),
-      { threshold: 1, rootMargin: '0px 0px -80% 0px' }
+      { threshold: 1, rootMargin: '0px 0px -75% 0px' }
     );
 
     tocElements.forEach((element) => {
@@ -87,27 +122,26 @@ const PostDetail = ({ thumb }: PostDetailProps) => {
   }, [contentRef.current]);
 
   useEffect(() => {
+    if (!showProgress || !contentRef.current) return;
+
     const handleScroll = () => {
-      if (!showProgress || !contentRef.current) return;
-
-      const element = contentRef.current;
-      const elementRect = element.getBoundingClientRect();
-
-      const progress = Math.min(
-        (Math.abs(elementRect.top) / elementRect.height) * 100,
-        100
-      );
-      setProgress(progress);
+      window.requestAnimationFrame
+        ? window.requestAnimationFrame(calculateReadingProgress)
+        : setTimeout(calculateReadingProgress, 250);
     };
 
-    if (showProgress) {
-      window.addEventListener('scroll', handleScroll);
-    } else {
-      window.removeEventListener('scroll', handleScroll);
-    }
+    const handleResize = () => {
+      window.requestAnimationFrame
+        ? window.requestAnimationFrame(calculateReadingProgress)
+        : setTimeout(calculateReadingProgress, 250);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
     };
   }, [showProgress]);
 
@@ -116,29 +150,6 @@ const PostDetail = ({ thumb }: PostDetailProps) => {
       top: 0
     });
   }, []);
-
-  const handleItemClick = (e: any, id: string) => {
-    e.preventDefault();
-    const editor = editorRef.current.getEditor();
-    const element = editor.view.dom.querySelector(`[id="${id}"]`);
-
-    const elementTop = element.getBoundingClientRect().top + window.scrollY;
-    const offset = window.innerHeight * 0.05;
-
-    window.scrollTo({
-      top: elementTop - offset,
-      behavior: 'smooth'
-    });
-  };
-
-  const readingTime = () => {
-    const wpm = 225;
-    const words = editorRef.current
-      ?.getEditor()
-      ?.storage.characterCount.words();
-    const time = Math.ceil(words / wpm);
-    return time;
-  };
 
   if (isFetching) return;
 
@@ -175,7 +186,7 @@ const PostDetail = ({ thumb }: PostDetailProps) => {
             <div className='h-1.5 w-1.5 mx-3 rounded-full bg-gray-500 dark:bg-gray-300'></div>
             <div className='flex items-center gap-2 text-sm'>
               <Clock size={18} />
-              <span>{readingTime()} min read</span>
+              <span>{calculateReadingTime()} min read</span>
             </div>
           </div>
         </div>
