@@ -1,0 +1,64 @@
+:root {
+  --cm-tag: #1e66f5;
+  --cm-comment: #6a737d;
+  --cm-class: #6f42c1;
+  --cm-variable: #df8e1d;
+  --cm-keyword: #d73a49;
+  --cm-string: #40a02b;
+  --cm-name: #22863a;
+  --cm-heading: #24292e;
+  --cm-deleted: #b31d28;
+  --cm-deleted-bg: #ffeef0;
+  --cm-atom: #e36209;
+  --cm-invalid: #cb2431;
+}
+
+html.dark {
+  --cm-tag: #f07178;
+  --cm-comment: #8b949e;
+  --cm-class: #d2a8ff;
+  --cm-variable: #c792ea;
+  --cm-keyword: #ff7b72;
+  --cm-string: #c3e88d;
+  --cm-name: #7ee787;
+  --cm-heading: #d2a8ff;
+  --cm-deleted: #ffdcd7;
+  --cm-deleted-bg: #ffeef0;
+  --cm-atom: #ffab70;
+  --cm-invalid: #f97583;
+}
+
+.cm-tag {
+  color: var(--cm-tag);
+}
+.cm-comment {
+  color: var(--cm-comment);
+}
+.cm-class {
+  color: var(--cm-class);
+}
+.cm-variable {
+  color: var(--cm-variable);
+}
+.cm-keyword {
+  color: var(--cm-keyword);
+}
+.cm-string {
+  color: var(--cm-string);
+}
+.cm-name {
+  color: var(--cm-name);
+}
+.cm-heading {
+  color: var(--cm-heading);
+}
+.cm-deleted {
+  color: var(--cm-deleted);
+  background-color: var(--cm-deleted-bg);
+}
+.cm-atom {
+  color: var(--cm-atom);
+}
+.cm-invalid {
+  color: var(--cm-invalid);
+}

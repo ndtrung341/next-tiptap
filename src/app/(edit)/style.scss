@@ -1,0 +1,92 @@
+:root {
+  // Base theme colors
+  --rte-bg: #fff;
+  --rte-fg: #1f2328;
+  --rte-border: #d1d9e0;
+  --rte-primary: #0969da;
+  --rte-primary-fg: #fff;
+  --rte-secondary: #f0f1f3;
+  --rte-secondary-fg: #59636e;
+  --rte-muted: #f6f8fa;
+  --rte-muted-fg: #59636e;
+  --rte-accent: #818b981f;
+  --rte-accent-fg: #59636e;
+  --rte-tooltip: #25292e;
+  --rte-tooltip-fg: #f0f0f0;
+
+  // Syntax highlighting (GitHub Light theme)
+  --rte-hljs-comment: #6a737d;
+  --rte-hljs-keyword: #d73a49;
+  --rte-hljs-entity: #6f42c1;
+  --rte-hljs-function: #6f42c1;
+  --rte-hljs-variable: #005cc5;
+  --rte-hljs-constant: #005cc5;
+  --rte-hljs-string: #032f62;
+  --rte-hljs-regexp: #032f62;
+  --rte-hljs-markup: #22863a;
+  --rte-hljs-builtin: #e36209;
+  --rte-hljs-inserted: #34d058;
+  --rte-hljs-deleted: #b31d28;
+  --rte-hljs-changed: #e36209;
+  --rte-hljs-ignored: #f6f8fa;
+
+  // Editor settings
+  --rte-editor-font-size: 15px;
+  --rte-editor-line-height: 1.5;
+  --rte-editor-font: var(--font-sans);
+  --rte-editor-code-font: var(--font-mono);
+  --rte-editor-code-bg: #f6f8fa;
+  --rte-editor-scrollbar: #00000040;
+  --rte-editor-selection: #2383e247;
+
+  --rte-radius: 0.5rem;
+}
+
+.dark {
+  // Dark theme colors
+  --rte-bg: #0d1017;
+  --rte-fg: #f0f6fc;
+  --rte-border: #3d444d;
+  --rte-primary: #4493f8;
+  --rte-secondary: #2e373e;
+  --rte-secondary-fg: #9198a1;
+  --rte-muted: #252c36;
+  --rte-muted-fg: #9198a1;
+  --rte-accent: #262c36;
+  --rte-accent-fg: #9198a1;
+  --rte-tooltip: #3d444d;
+  --rte-bubble: #151b23;
+
+  --rte-secondary: #2e373e;
+  --rte-secondary-fg: #b1b8c0;
+  --rte-muted: #1a2029;
+  --rte-muted-fg: #b1b8c0;
+  --rte-accent: #2d3440;
+  --rte-accent-fg: #b1b8c0;
+
+  // Syntax highlighting (GitHub Dark theme)
+  --rte-hljs-comment: #8b949e;
+  --rte-hljs-keyword: #ff7b72;
+  --rte-hljs-entity: #d2a8ff;
+  --rte-hljs-function: #d2a8ff;
+  --rte-hljs-variable: #79c0ff;
+  --rte-hljs-constant: #79c0ff;
+  --rte-hljs-string: #a5d6ff;
+  --rte-hljs-regexp: #a5d6ff;
+  --rte-hljs-markup: #7ee787;
+  --rte-hljs-builtin: #ffa657;
+  --rte-hljs-inserted: #3fb950;
+  --rte-hljs-deleted: #f85149;
+  --rte-hljs-changed: #ffa657;
+  --rte-hljs-ignored: #161b22;
+
+  /* Editor settings */
+  --rte-editor-code-bg: #1a2029;
+  --rte-editor-scrollbar: #ffffff40;
+
+  //   Box shadow
+  --rte-shadow-1: 0px 0px 0px 1px #3d444d, 0px 6px 12px -3px #01040966, 0px 6px 18px 0px #01040966;
+  --rte-shadow-2: 0px 0px 0px 1px #3d444d, 0px 8px 16px -4px #01040966, 0px 4px 32px -4px #01040966,
+    0px 24px 48px -12px #01040966, 0px 48px 96px -24px #01040966;
+  --rte-shadow-3: 0px 0px 0px 1px #3d444d, 0px 24px 48px 0px #010409;
+}

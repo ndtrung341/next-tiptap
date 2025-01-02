@@ -1,0 +1,11 @@
+@mixin font-size($size) {
+  $values: map-get($font-sizes, $size);
+  font-size: nth($values, 1);
+  line-height: nth($values, 2);
+}
+
+@mixin custom-scrollbar {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $editor-scrollbar transparent;
+}

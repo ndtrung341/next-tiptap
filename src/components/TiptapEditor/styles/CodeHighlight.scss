@@ -1,0 +1,193 @@
+/*!
+  Theme: GitHub
+  Description: Light theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-light
+  Current colors taken from GitHub's CSS
+*/
+// .hljs {
+//   color: #24292e;
+//   background: #fff;
+// }
+
+// .hljs-doctag,
+// .hljs-keyword,
+// .hljs-meta .hljs-keyword,
+// .hljs-template-tag,
+// .hljs-template-variable,
+// .hljs-type
+// // .hljs-variable.language_
+// {
+//   color: #d73a49;
+// }
+
+// .hljs-title,
+// .hljs-title.class_,
+// .hljs-title.class_.inherited__,
+// .hljs-title.function_,
+// .hljs-selector-class {
+//   color: #6f42c1;
+// }
+
+// // .hljs-attr,
+// .hljs-attribute,
+// .hljs-literal,
+// .hljs-meta,
+// .hljs-number,
+// .hljs-operator,
+// .hljs-selector-attr,
+// // .hljs-selector-class,
+// .hljs-selector-id,
+// .hljs-variable,
+// .hljs-variable.language_ {
+//   color: #005cc5;
+//   //   color: #6f42c1;
+// }
+
+// .hljs-meta .hljs-string,
+// .hljs-regexp,
+// .hljs-string {
+//   color: #032f62;
+// }
+
+// .hljs-params,
+// .hljs-built_in,
+// .hljs-symbol {
+//   color: #e36209;
+// }
+
+// .hljs-code,
+// .hljs-comment,
+// .hljs-formula {
+//   color: #6a737d;
+// }
+
+// .hljs-name,
+// .hljs-quote,
+// .hljs-selector-pseudo,
+// .hljs-selector-tag {
+//   color: #22863a;
+// }
+
+// .hljs-subst {
+//   color: #24292e;
+// }
+
+// .hljs-section {
+//   color: #005cc5;
+//   font-weight: 700;
+// }
+
+// .hljs-bullet {
+//   color: #735c0f;
+// }
+
+// .hljs-emphasis {
+//   color: #24292e;
+//   font-style: italic;
+// }
+
+// .hljs-strong {
+//   color: #24292e;
+//   font-weight: 700;
+// }
+
+// .hljs-addition {
+//   color: #22863a;
+//   background-color: #f0fff4;
+// }
+
+// .hljs-deletion {
+//   color: #b31d28;
+//   background-color: #ffeef0;
+// }
+
+.hljs {
+  // Keywords
+  &-keyword,
+  &-meta .hljs-keyword,
+  &-template-tag,
+  &-template-variable,
+  &-type {
+    color: var(--rte-hljs-keyword);
+  }
+
+  // Functions and classes
+  &-title,
+  &-title.class_,
+  &-title.class_.inherited__,
+  &-title.function_ {
+    color: var(--rte-hljs-function);
+  }
+
+  // Variables and attributes
+  &-attr,
+  &-attribute,
+  &-literal,
+  &-meta,
+  &-number,
+  &-operator,
+  &-variable,
+  &-selector-attr,
+  &-selector-id,
+  &-variable.language_ {
+    color: var(--rte-hljs-variable);
+  }
+
+  // Strings
+  &-meta .hljs-string,
+  &-regexp,
+  &-string {
+    color: var(--rte-hljs-string);
+  }
+
+  // Built-ins and parameters
+  &-built_in,
+  &-symbol,
+  &-params {
+    color: var(--rte-hljs-builtin);
+  }
+
+  // Comments
+  &-code,
+  &-comment,
+  &-formula {
+    color: var(--rte-hljs-comment);
+  }
+
+  // Markup and tags
+  &-name,
+  &-quote,
+  &-selector-tag,
+  &-selector-pseudo {
+    color: var(--rte-hljs-markup);
+  }
+
+  // Diff highlights
+  &-addition {
+    color: var(--rte-hljs-inserted);
+    background-color: #1b4721;
+  }
+  &-deletion {
+    color: var(--rte-hljs-deleted);
+    background-color: #78191b;
+  }
+  &-changed {
+    color: var(--rte-hljs-changed);
+  }
+  &-section {
+    color: var(--rte-hljs-constant);
+    font-weight: bold;
+  }
+  &-emphasis {
+    color: var(--rte-hljs-fg);
+    font-style: italic;
+  }
+  &-strong {
+    color: var(--rte-hljs-fg);
+    font-weight: bold;
+  }
+}

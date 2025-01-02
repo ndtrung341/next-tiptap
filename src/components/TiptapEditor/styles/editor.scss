@@ -1,0 +1,208 @@
+.rte-editor {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  font-family: $editor-font;
+  box-shadow: $shadow-1;
+  @include font-size("sm");
+
+  &--fullscreen {
+    --rte-editor-max-height: auto;
+    --rte-editor-min-height: auto;
+
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+  }
+
+  &__content {
+    flex: 1;
+    position: relative;
+    max-width: 45rem;
+    width: 100%;
+    margin: 0 auto;
+    font-size: $editor-font-size;
+    line-height: $editor-line-height;
+  }
+
+  &__container {
+    cursor: text;
+    display: flex;
+    flex: 1;
+    position: relative;
+    padding-inline: 1.75rem;
+    background-color: $bg-color;
+    color: $fg-color;
+    min-height: $editor-min-height;
+    max-height: $editor-max-height;
+    @include custom-scrollbar;
+
+    &:has(.cm-editor) {
+      padding-inline: 1rem;
+    }
+
+    &:has(.cm-focused),
+    &:has(.ProseMirror-focused) {
+      border-radius: $radius-sm;
+      box-shadow: 0 0 0 2px $primary-color;
+    }
+  }
+}
+
+.rte-menu-bar,
+.rte-status-bar {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  background-color: $bg-color;
+  padding: 0.125rem 0.125rem;
+}
+
+.rte-menu-bar {
+  border-bottom: 1px solid $border-color;
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+.rte-status-bar {
+  border-top: 1px solid $border-color;
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+
+  .rte-counter {
+    margin-left: auto;
+    padding: 0.25rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    //  font-size: 90%;
+    font-weight: 500;
+    color: $muted-fg-color;
+  }
+}
+
+.rte-menu__button {
+  position: relative;
+
+  &[data-active],
+  &[data-active]:hover {
+    color: $primary-color;
+    background-color: $accent-color;
+    //  background-color: shade-color($primary-color, 0.7);
+  }
+
+  &:has(.rte-icon-arrow) {
+    width: auto;
+    padding-inline: 0.25rem;
+
+    .rte-button__text:first-child {
+      margin-left: 0.25rem;
+    }
+  }
+
+  .rte-icon-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.125rem;
+  }
+}
+
+.rte-bubble-menu {
+  border-radius: $radius;
+  background-color: $bubble-color;
+  box-shadow: $shadow-2;
+}
+
+.rte-link {
+  &__form {
+    width: 20rem;
+    padding: 1rem;
+  }
+
+  &__label {
+    font-weight: 600;
+
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.125rem;
+
+    button {
+      padding-inline: 1rem;
+    }
+  }
+}
+
+.rte-text-alternative__form {
+  min-width: 22rem;
+
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.375rem 0.5rem;
+
+  input {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+.rte-heading-dropdown {
+  min-width: 10rem;
+
+  @each $heading, $size in ("p": "sm", "h1": "2xl", "h2": "xl", "h3": "lg", "h4": "base") {
+    [data-heading="#{$heading}"] {
+      @include font-size($size);
+      @if $heading != "p" {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.rte-code-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+
+  .code-search {
+    height: 2.25rem;
+  }
+
+  .code-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    @include custom-scrollbar;
+  }
+
+  .code-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.375rem 0.375rem 1.75rem;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    @include font-size("sm");
+
+    &:hover {
+      background-color: $accent-color;
+    }
+
+    &__indicator {
+      position: absolute;
+      left: 0.375rem;
+    }
+  }
+}

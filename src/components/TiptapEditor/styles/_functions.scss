@@ -1,0 +1,7 @@
+@function tint-color($color, $alpha) {
+  @return #{color-mix(in srgb, $color, #fff #{(1 - $alpha) * 100%})};
+}
+
+@function shade-color($color, $alpha) {
+  @return #{color-mix(in srgb, $color, #000 #{$alpha * 100%})};
+}

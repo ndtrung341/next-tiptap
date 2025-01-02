@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: #1f2328;
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  background-color: #fff;
+  background-image: linear-gradient(rgba(#fff, 0.85), rgba(#fff, 0.95)), url("/background.svg");
+}
+
+html.dark {
+  --foreground: #f0f6fc;
+
+  body {
+    color: var(--foreground);
+    background-color: #0d1018;
+    background-image: linear-gradient(rgba(#0d1018, 0.85), rgba(#0d1018, 0.95)),
+      url("/background.svg");
+  }
+}
+
+.article-content {
+  li p {
+    margin: 0 !important;
+  }
+
+  figcaption {
+    text-align: center;
+  }
+
+  blockquote {
+    p:first-of-type::before,
+    p:first-of-type::after {
+      content: unset;
+    }
+  }
+
+  pre {
+    position: relative;
+    background-color: hsl(224, 19%, 97%);
+    padding-block: 1rem;
+    overflow-x: auto;
+
+    code {
+      padding-inline: 1.25rem;
+      display: block;
+      width: fit-content;
+      min-width: 100%;
+      font-size: 90%;
+      line-height: 1.7;
+    }
+  }
+}
+
+html.dark {
+  .article-content {
+    pre {
+      background-color: hsl(224, 14%, 16%);
+
+      code .line span {
+        color: var(--shiki-dark) !important;
+        background-color: var(--shiki-dark-bg) !important;
+        font-style: var(--shiki-dark-font-style) !important;
+        font-weight: var(--shiki-dark-font-weight) !important;
+        text-decoration: var(--shiki-dark-text-decoration) !important;
+      }
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+}
