@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from "react";
 import { BubbleMenu } from "../../BubbleMenu";
-import { Toolbar } from "../../ui/Toolbar";
+import {Toolbar, ToolbarDivider} from "../../ui/Toolbar";
 import { useTiptapContext } from "../../Provider";
 import MenuButton from "../../MenuButton";
 import { useEditorState } from "@tiptap/react";
@@ -60,6 +60,7 @@ export const CodeBlockMenu = () => {
     >
       <Toolbar>
         <CodeDropdown value={language} onSelect={handleSelect} />
+        <ToolbarDivider />
         <MenuButton
           icon={isCopied ? "Check" : "Clipboard"}
           tooltip="Copy code"

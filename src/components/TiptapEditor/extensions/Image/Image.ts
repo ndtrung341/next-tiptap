@@ -68,8 +68,6 @@ export const Image = TiptapImage.extend({
         ({ commands }) => {
           return commands.setImage({
             ...options,
-            width,
-            height,
             naturalWidth: width,
             naturalHeight: height,
           } as any);

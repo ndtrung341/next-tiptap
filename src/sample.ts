@@ -12,7 +12,7 @@ const content = `
 </p>
 
 <img 
-   src="http://res.cloudinary.com/dmhzdv5kf/image/upload/v1735024108/668464364417bf4b0898c526_docs-v2-blog_s0krle.jpg"
+   src="https://res.cloudinary.com/dmhzdv5kf/image/upload/v1735024108/668464364417bf4b0898c526_docs-v2-blog_s0krle.jpg"
    alt="Tiptap Editor"
    data-width="1200"
    data-height="800"
@@ -178,7 +178,7 @@ export default EditorPage</code></pre>
 
 <figure>
    <img
-      src="http://res.cloudinary.com/dmhzdv5kf/image/upload/v1735023550/6660c5607775f0c58f52a4f0_editor-hero_eb3mes.png"
+      src="https://res.cloudinary.com/dmhzdv5kf/image/upload/v1735023550/6660c5607775f0c58f52a4f0_editor-hero_eb3mes.png"
       alt="Tiptap Editor Example"
       data-width="1038"
       data-height="644"
@@ -196,10 +196,10 @@ export default EditorPage</code></pre>
 `;
 
 export const mock = {
-  title,
-  content,
-  wordCount: 483,
-  cover: "http://res.cloudinary.com/dmhzdv5kf/image/upload/v1733364957/shk91N6yUj_zkms92.jpg",
-  author: "ChatGPT",
-  createdAt: "Jan, 02 2025",
+    title,
+    content,
+    wordCount: 483,
+    cover: "https://res.cloudinary.com/dmhzdv5kf/image/upload/v1733364957/shk91N6yUj_zkms92.jpg",
+    author: "ChatGPT",
+    createdAt: "Jan, 02 2025",
 };

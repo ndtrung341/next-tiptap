@@ -59,7 +59,7 @@ export const Link = TiptapLink.extend<LinkOptions, LinkEditorStorage>({
                     .insertLink({ text: "\u200B" })
                     .run();
                 // @ts-ignore
-                return chain().setLink().run();
+                return chain().setLink({href:""}).run();
               })
               .setMeta("addToHistory", false)
               .setMeta("preventUpdate", true)

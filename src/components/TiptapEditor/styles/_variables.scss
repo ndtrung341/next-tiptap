@@ -12,7 +12,8 @@ $muted-color: var(--rte-muted);
 $muted-fg-color: var(--rte-muted-fg);
 $tooltip-color: var(--rte-tooltip);
 $tooltip-fg-color: var(--rte-tooltip-fg);
-$bubble-color: var(--rte-bubble, $bg-color);
+$bubble: var(--rte-bubble, $bg-color);
+$overlay: var(--rte-overlay);
 
 // Font
 $text-size-xs: 0.75rem;

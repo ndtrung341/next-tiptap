@@ -85,6 +85,7 @@
 
 .rte-menu__button {
   position: relative;
+  padding-inline: 0.5rem;
 
   &[data-active],
   &[data-active]:hover {
@@ -112,7 +113,7 @@
 
 .rte-bubble-menu {
   border-radius: $radius;
-  background-color: $bubble-color;
+  background-color: $bubble;
   box-shadow: $shadow-2;
 }
 
