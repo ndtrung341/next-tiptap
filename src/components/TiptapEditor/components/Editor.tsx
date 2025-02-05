@@ -18,6 +18,7 @@ import { cssVar } from "../utils/cssVar";
 import { throttle } from "../utils/throttle";
 
 import "../styles/index.scss";
+import TableMenu from "@/components/TiptapEditor/components/menus/TableMenu";
 
 export type TiptapEditorRef = {
   getInstance: () => Editor | null;
@@ -102,6 +103,7 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(
         <LinkMenu />
         <ImageMenu />
         <CodeBlockMenu />
+        <TableMenu />
       </>
     );
 

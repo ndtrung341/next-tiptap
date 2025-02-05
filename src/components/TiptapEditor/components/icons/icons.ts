@@ -37,19 +37,27 @@ import {
   TbAlt,
   TbDownload,
   TbBrandYoutube,
-  TbQuoteFilled,
   TbX,
   TbRuler,
   TbPalette,
   TbBan,
   TbPaletteOff,
   TbPlus,
+  TbTable,
+  TbArrowsHorizontal,
+  TbTableRow,
+  TbTableColumn,
+  TbColumnInsertLeft,
+  TbColumnInsertRight,
+  TbRowInsertTop,
+  TbRowInsertBottom,
+  TbRowRemove,
+  TbColumnRemove,
 } from "react-icons/tb";
-
+import { AiOutlineMergeCells, AiOutlineSplitCells } from "react-icons/ai";
 import IconCorner from "./Corner";
 import IconInlineCode from "./InlineCode";
 import IconQuote from "./Quote";
-import IconColor from "./TextColor";
 import IconTextHighlight from "./TextHighlight";
 import IconTextColor from "./TextColor";
 
@@ -103,6 +111,20 @@ export const icons = {
   PaletteOff: TbPaletteOff,
   Ban: TbBan,
   Plus: TbPlus,
+  Table: TbTable,
+  Stretch: TbArrowsHorizontal,
+  HeaderRow: TbTableRow,
+  HeaderCol: TbTableColumn,
+  ColInsertLeft: TbColumnInsertLeft,
+  ColInsertRight: TbColumnInsertRight,
+  ColRemove: TbColumnRemove,
+  ColHeader: TbTableColumn,
+  RowInsertTop: TbRowInsertTop,
+  RowInsertBottom: TbRowInsertBottom,
+  RowRemove: TbRowRemove,
+  RowHeader: TbTableRow,
+  MergeCell: AiOutlineMergeCells,
+  SplitCell: AiOutlineSplitCells,
 } satisfies Record<string, IconType>;
 
 export type { IconBaseProps, IconType };

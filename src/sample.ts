@@ -2,21 +2,26 @@ export const title = "Tiptap with React and Next.js: Building a Powerful Rich Te
 
 const content = `
 <h2>Introduction</h2>
+
 <p>
   In web development, creating feature-rich text editors has always been challenging. Tiptap, a headless editor framework, combined with React and Next.js, opens up possibilities for sophisticated content management systems and collaborative editing tools.
 </p>
 
 <h3>What is Tiptap?</h3>
+
 <p>
   Tiptap is built on ProseMirror, providing a modular architecture and headless functionality. This approach gives developers full control over the UI while offering powerful editing capabilities.
 </p>
 
-<img 
-   src="https://res.cloudinary.com/dmhzdv5kf/image/upload/v1735024108/668464364417bf4b0898c526_docs-v2-blog_s0krle.jpg"
-   alt="Tiptap Editor"
-   data-width="1200"
-   data-height="800"
-/>
+<figure>
+   <img 
+      src="https://res.cloudinary.com/dmhzdv5kf/image/upload/v1735024108/668464364417bf4b0898c526_docs-v2-blog_s0krle.jpg"
+      alt="Tiptap Editor"
+      data-width="1200"
+      data-height="800"
+   />
+   <figcaption>Tiptap: A powerful combination of technologies</figcaption>
+</figure>
 
 <h3>Key Features</h3>
 
@@ -168,23 +173,76 @@ export default EditorPage</code></pre>
 <iframe 
    width="560" 
    height="315" 
-   src="https://www.youtube.com/embed/ZGk2m37r49g" 
+   src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
 ></iframe>
+
+<h2>Comparison of Rich Text Editors</h2>
+<p>When choosing a rich text editor, it's important to compare different options based on their features, flexibility, and ecosystem support. The table below compares Tiptap, TinyMCE, and CKEditor.</p>
+<table>
+  <colgroup>
+    <col style="width: 180px" />
+    <col style="width: 100px" />
+    <col style="width: 100px" />
+    <col style="width: 100px" />
+  </colgroup>
+  <tbody>
+    <tr>
+      <th colwidth="180"><p>Feature</p></th>
+      <th colwidth="100"><p style="text-align: center">Tiptap</p></th>
+      <th colwidth="100"><p style="text-align: center">TinyMCE</p></th>
+      <th colwidth="100"><p style="text-align: center">CKEditor</p></th>
+    </tr>
+    <tr>
+      <td colwidth="180"><p>Headless</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">❌</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+    </tr>
+      <tr>
+      <td colwidth="180"><p>React & Vue Support</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+    </tr>
+   </tr>
+      <tr>
+      <td colwidth="180"><p>Extensibility</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">⚠️</p></td>
+      <td colwidth="100"><p style="text-align: center">⚠️</p></td>
+    </tr>
+    <tr>
+      <td colwidth="180"><p>Collaborative</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+    </tr>
+   <tr>
+      <td colwidth="180"><p>Markdown Support</p></td>
+      <td colwidth="100"><p style="text-align: center">⚠️</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+    </tr>
+   <tr>
+      <td colwidth="180"><p>Lighweight</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">⚠️</p></td>
+      <td colwidth="100"><p style="text-align: center">⚠️</p></td>   
+    </tr>
+    <tr>
+      <td colwidth="180"><p>Open Source</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+      <td colwidth="100"><p style="text-align: center">❌</p></td>
+      <td colwidth="100"><p style="text-align: center">✅</p></td>
+    </tr>
+  </tbody>
+</table>
+
 
 <h2>Conclusion</h2>
 <p>
   Tiptap, combined with React and Next.js, offers a powerful solution for building rich text editors. Its extensibility, performance optimization capabilities, and support for collaborative editing make it an excellent choice for a wide range of web applications.
 </p>
-
-<figure>
-   <img
-      src="https://res.cloudinary.com/dmhzdv5kf/image/upload/v1735023550/6660c5607775f0c58f52a4f0_editor-hero_eb3mes.png"
-      alt="Tiptap Editor Example"
-      data-width="1038"
-      data-height="644"
-   />
-   <figcaption>Tiptap: A powerful combination of technologies</figcaption>
-</figure>
 
 <h2>Resources</h2>
 <ul>
@@ -196,10 +254,10 @@ export default EditorPage</code></pre>
 `;
 
 export const mock = {
-    title,
-    content,
-    wordCount: 483,
-    cover: "https://res.cloudinary.com/dmhzdv5kf/image/upload/v1733364957/shk91N6yUj_zkms92.jpg",
-    author: "ChatGPT",
-    createdAt: "Jan, 02 2025",
+  title,
+  content,
+  wordCount: 483,
+  cover: "https://res.cloudinary.com/dmhzdv5kf/image/upload/v1733364957/shk91N6yUj_zkms92.jpg",
+  author: "ChatGPT",
+  createdAt: "Jan, 02 2025",
 };

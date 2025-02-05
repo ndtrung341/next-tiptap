@@ -17,6 +17,7 @@ import {
   TextStyle,
   Color,
   Highlight,
+  Table,
 } from "./extensions";
 
 const ExtensionKit = [
@@ -25,7 +26,6 @@ const ExtensionKit = [
     hardBreak: false,
     codeBlock: false,
   }),
-
   Placeholder.configure({
     includeChildren: true,
     showOnlyCurrent: true,
@@ -55,6 +55,7 @@ const ExtensionKit = [
   ImageFigure,
   CodeBlock,
   Youtube,
+  Table,
 ];
 
 export default ExtensionKit;

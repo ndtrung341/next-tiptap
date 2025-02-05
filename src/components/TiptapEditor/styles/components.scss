@@ -1,75 +1,75 @@
 // BUTTON
 .rte-button {
-  all: unset;
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  border-radius: $radius-sm;
-  user-select: none;
-  cursor: pointer;
-  transition: all 0.15s ease-in;
-  white-space: nowrap;
-  width: auto;
-  height: 2rem;
-  //   padding-inline: 0.75rem;
-  padding-inline: 0.75rem;
+   all: unset;
+   box-sizing: border-box;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   font-weight: 500;
+   border-radius: $radius-sm;
+   user-select: none;
+   cursor: pointer;
+   transition: all 0.15s ease-in;
+   white-space: nowrap;
+   width: auto;
+   height: 2rem;
+   //   padding-inline: 0.75rem;
+   padding-inline: 0.75rem;
 
-  border: 1px solid transparent;
-  @include font-size("sm");
+   border: 1px solid transparent;
+   @include font-size("sm");
 
-  &:disabled {
-    opacity: 0.5;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
+   &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+   }
 
-  &__text {
-    display: inline-flex;
-    align-items: center;
-    text-align: inherit;
-    flex: 1 auto;
-  }
+   &__text {
+      display: inline-flex;
+      align-items: center;
+      text-align: inherit;
+      flex: 1 auto;
+   }
 
-  * + &__text {
-    margin-left: 0.5rem;
-  }
+   * + &__text {
+      margin-left: 0.5rem;
+   }
 
-  &.rte-button--icon-only {
-    padding: 0;
-    aspect-ratio: 1/1;
-  }
+   &.rte-button--icon-only {
+      padding: 0;
+      aspect-ratio: 1/1;
+   }
 }
 
 .rte-button--primary {
-  color: $primary-fg-color;
-  background-color: $primary-color;
-  border-color: $primary-color;
+   color: $primary-fg-color;
+   background-color: $primary-color;
+   border-color: $primary-color;
 
-  &:not(:disabled):hover {
-    background-color: tint-color($primary-color, 0.85);
-  }
+   &:not(:disabled):hover {
+      background-color: tint-color($primary-color, 0.85);
+   }
 }
 
 .rte-button--secondary {
-  color: $secondary-fg-color;
-  background-color: $secondary-color;
-  border-color: $secondary-color;
+   color: $secondary-fg-color;
+   background-color: $secondary-color;
+   border-color: $secondary-color;
 
-  &:not(:disabled):hover {
-    background-color: shade-color($secondary-color, 0.08);
-  }
+   &:not(:disabled):hover {
+      background-color: shade-color($secondary-color, 0.08);
+   }
 }
 
 .rte-button--outline {
-  background-color: $bg-color;
-  border-color: $border-color;
+   background-color: $bg-color;
+   border-color: $border-color;
 
-  &:not(:disabled):hover {
-    background-color: $muted-color;
-    color: $muted-fg-color;
-  }
+   &:not(:disabled):hover {
+      background-color: $muted-color;
+      color: $muted-fg-color;
+   }
 }
 
 // .rte-button--destructive {
@@ -83,275 +83,303 @@
 // }
 
 .rte-button--ghost {
-  color: $accent-fg-color;
+   color: $accent-fg-color;
 
-  &:not(:disabled):hover {
-    background-color: $accent-color;
-    color: $fg-color;
-  }
+   &:not(:disabled):hover {
+      background-color: $accent-color;
+      color: $fg-color;
+   }
 }
 
 // TOOLTIP
 .rte-tooltip {
-  z-index: 50;
-  padding: 0.375rem 0.625rem;
-  min-height: 1.75rem;
-  text-wrap: nowrap;
-  border-radius: $radius-sm;
-  background-color: $tooltip-color;
-  color: $tooltip-fg-color;
-  font-weight: 500;
-  @include font-size("xs");
-  line-height: 1.5;
+   z-index: 50;
+   padding: 0.375rem 0.625rem;
+   min-height: 1.75rem;
+   text-wrap: nowrap;
+   border-radius: $radius-sm;
+   background-color: $tooltip-color;
+   color: $tooltip-fg-color;
+   font-weight: 500;
+   @include font-size("xs");
+   line-height: 1.5;
 }
 
 // DROPDOWN
 .rte-dropdown {
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.375rem 0.375rem;
-  background-color: $bg-color;
-  border-radius: $radius;
-  box-shadow: $shadow-1;
+   z-index: 50;
+   display: flex;
+   flex-direction: column;
+   gap: 0.25rem;
+   padding: 0.375rem 0.375rem;
+   background-color: $bg-color;
+   border-radius: $radius;
+   box-shadow: $shadow-1;
 }
 
 .rte-dropdown__indicator {
-  width: 1rem;
-  display: flex;
-  justify-content: center;
+   width: 1rem;
+   display: flex;
+   justify-content: center;
 }
 
 .rte-dropdown__item {
-  position: relative;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  padding: 0.375rem 0.5rem;
-  border-radius: $radius-sm;
-  outline: none;
-  color: $fg-color;
-  cursor: pointer;
-  @include font-size("sm");
+   position: relative;
+   display: flex;
+   gap: 0.5rem;
+   align-items: center;
+   padding: 0.375rem 0.5rem;
+   border-radius: $radius-sm;
+   outline: none;
+   color: $fg-color;
+   cursor: pointer;
+   @include font-size("sm");
 
-  &:hover {
-    background-color: $accent-color;
-  }
+   &:hover {
+      background-color: $accent-color;
+   }
 
-  &[data-active],
-  &[data-active]:hover {
-    color: $primary-color;
-    background-color: $accent-color;
-  }
+   &[data-active],
+   &[data-active]:hover {
+      color: $primary-color;
+      background-color: $accent-color;
+   }
 }
 
 // POPOVER
 .rte-popover {
-  z-index: 50;
-  background-color: $bg-color;
-  padding: 0.25rem;
-  border-radius: $radius;
-  box-shadow: $shadow-1;
+   z-index: 50;
+   background-color: $bg-color;
+   padding: 0.25rem;
+   border-radius: $radius;
+   box-shadow: $shadow-1;
 }
 
 // TOOLBAR
 .rte-toolbar {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  row-gap: 0.25rem;
-  column-gap: 0.25rem;
-  padding: 0.375rem;
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   flex-wrap: wrap;
+   row-gap: 0.375rem;
+   column-gap: 0.25rem;
+   padding: 0.375rem;
 
-  &--vertical {
-    flex-direction: column;
-  }
+   &--vertical {
+      flex-direction: column;
+   }
 
-  &--dense {
-    padding: 0.125rem;
-  }
+   &--dense {
+      padding: 0.125rem;
+   }
 }
 
 // TOOLBAR
 .rte-toolbar__divider {
-  border: 0px solid $border-color;
-  border-right-width: thin;
-  width: 1px;
-  height: 1.25rem;
-  margin: 0 0.25rem;
-  flex-shrink: 0;
+   border: 0px solid $border-color;
+   border-right-width: thin;
+   width: 1px;
+   height: 1.25rem;
+   margin: 0 0.25rem;
+   flex-shrink: 0;
 
-  &--horizontal {
-    border: 0px solid $border-color;
-    border-bottom-width: thin;
-    width: 100%;
-    height: 1px;
-    margin: 0.25rem 0;
-  }
+   &--horizontal {
+      border: 0px solid $border-color;
+      border-bottom-width: thin;
+      width: 100%;
+      height: 1px;
+      margin: 0.25rem 0;
+   }
 }
 
 // INPUT
 .rte-input {
-  display: flex;
-  width: 100%;
-  height: 2rem;
-  padding: 0.375rem 0.625rem;
-  border-radius: $radius-sm;
-  border: 1px solid $border-color;
-  background-color: $muted-color;
-  outline: transparent solid 2px;
-  color: $fg-color;
-  @include font-size("sm");
+   display: flex;
+   width: 100%;
+   height: 2rem;
+   padding: 0.375rem 0.625rem;
+   border-radius: $radius-sm;
+   border: 1px solid $border-color;
+   background-color: $muted-color;
+   outline: transparent solid 2px;
+   color: $fg-color;
+   @include font-size("sm");
 
-  &::placeholder {
-    color: $muted-fg-color;
-  }
+   &::placeholder {
+      color: $muted-fg-color;
+   }
 
-  &:focus-visible {
-    outline-color: $primary-color;
-  }
+   &:focus-visible {
+      outline-color: $primary-color;
+   }
 }
 
 // LABEL
 .rte-label {
-  font-size: 90%;
-  display: inline-block;
-  line-height: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: $muted-fg-color;
-  font-weight: bold;
+   font-size: 90%;
+   display: inline-block;
+   line-height: 1.25rem;
+   margin-bottom: 0.5rem;
+   color: $muted-fg-color;
+   font-weight: bold;
 }
 
 // RESIZER
 .rte-resizer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  transition: none;
+   position: absolute;
+   top: 0;
+   left: 0;
+   pointer-events: none;
+   transition: none;
 
-  &__control {
-    position: absolute;
-    pointer-events: auto;
-    background-color: $primary-color;
-    aspect-ratio: 1/1;
-    border: 2px solid $bg-color;
-    transition: none;
-  }
+   &__control {
+      position: absolute;
+      pointer-events: auto;
+      background-color: $primary-color;
+      aspect-ratio: 1/1;
+      border: 2px solid $bg-color;
+      transition: none;
+   }
 }
 
 // DIALOG
 .rte-dialog {
-  position: fixed;
-  inset: 0;
-  background-color: $overlay;
-  backdrop-filter: blur(3px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+   position: fixed;
+   inset: 0;
+   background-color: $overlay;
+   backdrop-filter: blur(3px);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 9999;
 
-  //&__content {
-  //  position: relative;
-  //  display: flex;
-  //  flex-direction: column;
-  //}
+   //&__content {
+   //  position: relative;
+   //  display: flex;
+   //  flex-direction: column;
+   //}
 }
 
 // COLOR-PICKER
 .rte-color__list {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 0.5rem;
-  row-gap: 0.5rem;
+   display: flex;
+   flex-wrap: wrap;
+   column-gap: 0.5rem;
+   row-gap: 0.5rem;
 }
 
 .rte-color__btn {
-  min-width: 1.25rem;
-  height: 1.25rem;
-  border: 1px solid $border-color;
-  border-radius: 4px;
-  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-  transform: scale(1);
+   min-width: 1.25rem;
+   height: 1.25rem;
+   border: 1px solid $border-color;
+   border-radius: 4px;
+   transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+   transform: scale(1);
 
-  &:hover {
-    transform: scale(1.2);
-  }
+   &:hover {
+      transform: scale(1.2);
+   }
 
-  &[data-active] {
-    box-shadow:
-      0 0 0 1px $bg-color,
+   &[data-active] {
+      box-shadow: 0 0 0 1px $bg-color,
       0 0 0 3px $primary-color;
-  }
+   }
 }
 
 .rte-cp {
-  width: 260px;
-  display: flex;
-  flex-direction: column;
+   width: 260px;
+   display: flex;
+   flex-direction: column;
 
-  &__tabs {
-    display: flex;
-    margin-inline: -0.25rem; // ignore-padding from parent
-    margin-top: -0.25rem; // ignore-padding from parent
-    border-bottom: 1px solid $border-color;
-  }
+   &__tabs {
+      display: flex;
+      margin-inline: -0.25rem; // ignore-padding from parent
+      margin-top: -0.25rem; // ignore-padding from parent
+      border-bottom: 1px solid $border-color;
+   }
 
-  &__tab {
-    width: 100%;
-    //  height: 2.25rem;
-    font-size: 90%;
-    position: relative;
+   &__tab {
+      width: 100%;
+      //  height: 2.25rem;
+      font-size: 90%;
+      position: relative;
 
-    &:first-child::after {
-      content: "";
-      position: absolute;
-      right: -2px;
-      width: 1px;
-      height: 100%;
-      border-left: 1px solid $border-color;
-    }
+      &:first-child::after {
+         content: "";
+         position: absolute;
+         right: -2px;
+         width: 1px;
+         height: 100%;
+         border-left: 1px solid $border-color;
+      }
 
-    &[data-active]::before {
-      content: "";
-      position: absolute;
-      left: -0.125rem;
-      bottom: -0.125rem;
-      inset-inline: 0;
-      height: 2px;
-      background-color: $primary-color;
-    }
-  }
+      &[data-active]::before {
+         content: "";
+         position: absolute;
+         left: -0.125rem;
+         bottom: -0.125rem;
+         inset-inline: 0;
+         height: 2px;
+         background-color: $primary-color;
+      }
+   }
 
-  &__main {
-    padding: 0 0.5rem;
-    margin-block: 0.75rem;
-  }
+   &__main {
+      padding: 0 0.5rem;
+      margin-block: 0.75rem;
+   }
 
-  &__actions {
-    padding: 0 0.5rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.125rem;
-    display: flex;
-    gap: 0.5rem;
+   &__actions {
+      padding: 0 0.5rem;
+      margin-bottom: 0.5rem;
+      margin-top: 0.125rem;
+      display: flex;
+      gap: 0.5rem;
 
-    //  button {
-    // height: 2.25rem;
-    //  }
-  }
+      //  button {
+      // height: 2.25rem;
+      //  }
+   }
 
-  &-swatches,
-  &-custom {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-  }
+   &-swatches,
+   &-custom {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+   }
 
-  &-custom__preview {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+   &-custom__preview {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+   }
+}
+
+.rte-tb {
+   &__builder {
+      font-size: 90%;
+   }
+
+   &__grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+      padding: 0.5rem;
+   }
+
+   &__row {
+      display: flex;
+      gap: 0.5rem;
+   }
+
+   &__cell {
+      width: 1rem;
+      height: 1rem;
+      background-color: $accent-color;
+      box-shadow: 0 0 0 1.5px $border-color;
+
+      &--active {
+        box-shadow: 0 0 0 1.5px $primary-color;
+      }
+   }
 }

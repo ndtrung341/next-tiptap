@@ -22,3 +22,4 @@ export { Indent } from "./Indent";
 export { Selection } from "./Selection";
 export { Youtube } from "./Youtube/Youtube";
 export { Image } from "./Image";
+export { Table } from "./Table";

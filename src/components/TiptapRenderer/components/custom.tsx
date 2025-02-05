@@ -10,9 +10,9 @@ const SyntaxHighlighter = dynamic(() => import("./SyntaxHighlighter"), {
 });
 
 export const components: Partial<Components> = {
-  h2: ({ ...props }) => <HeadingWithAnchor level={2} {...props} />,
-  h3: ({ ...props }) => <HeadingWithAnchor level={3} {...props} />,
-  h4: ({ ...props }) => <HeadingWithAnchor level={4} {...props} />,
+  h2: (props) => <HeadingWithAnchor level={2} {...props} />,
+  h3: (props) => <HeadingWithAnchor level={3} {...props} />,
+  h4: (props) => <HeadingWithAnchor level={4} {...props} />,
   img: ({ src, alt, width, ...props }: any) => (
     <Image
       src={src}
@@ -54,4 +54,15 @@ export const components: Partial<Components> = {
       <code {...props}>{children}</code>
     );
   },
+  table: (props: any) => (
+    <table className="not-prose w-full table-auto border-collapse mx-auto text-sm" {...props} />
+  ),
+  tr: (props: any) => (
+    <tr
+      className="border-b last:border-b-0 border-b-[#d1d9e0] dark:border-b-[#3d444d]"
+      {...props}
+    />
+  ),
+  td: (props: any) => <td className="px-2.5 py-3.5" {...props} />,
+  th: (props: any) => <td className="px-2.5 py-3.5 font-bold" {...props} />,
 };
