@@ -49,7 +49,7 @@ export const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
       disabled,
       ...props
     },
-    ref
+    ref,
   ) => {
     const hasArrowIcon =
       !hideArrow && (type === "dropdown" || type === "popover");
@@ -68,7 +68,7 @@ export const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
 
     const renderIcon = useMemo(
       () => (icon ? <Icon name={icon} className="rte-button-icon" /> : null),
-      [icon]
+      [icon],
     );
 
     const renderButton = (
@@ -115,6 +115,7 @@ export const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
           <DropdownMenuContent
             className={dropdownClass}
             style={dropdownStyle}
+            avoidCollisions={false}
             onCloseAutoFocus={(e) => e.preventDefault()}
           >
             {children}
@@ -130,6 +131,7 @@ export const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
           <PopoverContent
             className={dropdownClass}
             style={dropdownStyle}
+            avoidCollisions={false}
             onCloseAutoFocus={(e) => e.preventDefault()}
             onOpenAutoFocus={(e) => e.preventDefault()}
           >
@@ -140,7 +142,7 @@ export const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
     }
 
     return renderContent;
-  }
+  },
 );
 
 MenuButton.displayName = "MenuButton";

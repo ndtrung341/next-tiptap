@@ -8,25 +8,41 @@ import {
 } from "@/lib/lowlight";
 
 let highlighter: Highlighter | undefined;
+let highlighterPromise: Promise<void> | undefined;
 let parser: Parser | undefined;
 
+const loadHighlighter = () => {
+  if (!highlighterPromise) {
+    highlighterPromise = createHighlighter({
+      langs: ["plaintext", "xml"],
+    }).then((h) => {
+      highlighter = h;
+    });
+  }
+
+  return highlighterPromise;
+};
+
+/**
+ * Lazy load highlighter and highlighter languages.
+ *
+ * When the highlighter or the required language is not loaded, it returns a
+ * promise that resolves when the highlighter or the language is loaded.
+ * Otherwise, it returns an array of decorations.
+ */
 const lazyParser: Parser = (options) => {
-  // Initialize highlighter on first use
   if (!highlighter) {
-    highlighter = createHighlighter();
+    return loadHighlighter();
   }
 
   const language = options.language as BundledLanguage;
   const loadedLanguages = highlighter.getLoadedLanguages();
-
-  // Load language if not already loaded
   if (!loadedLanguages.includes(language)) {
     return highlighter.loadLanguage(language);
   }
 
-  // Create parser if not exists
   if (!parser) {
-    parser = createParser(highlighter.lowlight);
+    parser = createParser(highlighter);
   }
 
   return parser(options);

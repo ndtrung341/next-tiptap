@@ -1,7 +1,5 @@
 import React, { useMemo, useState, useCallback, memo } from "react";
 
-import { getSupportedLanguages } from "@/lib/lowlight";
-
 import { MenuButton } from "../../menu-button";
 import { useTiptapEditor } from "../../provider";
 import Icon from "../../ui/icon";
@@ -11,6 +9,7 @@ import SearchInput from "../../ui/search-input";
 interface LanguageOption {
   label: string;
   value: string;
+  alias: string;
 }
 
 interface LanguageDropdownProps {
@@ -25,13 +24,12 @@ export const LanguageDropdown = ({
   const { editor } = useTiptapEditor();
   const [search, setSearch] = useState("");
 
-  const options: LanguageOption[] = useMemo(
-    () => getSupportedLanguages(),
-    // lowlightService
-    //   .getSupportedLanguages()
-    //   .map((item) => ({ label: item.label, value: item.syntax })),
-    []
-  );
+  const options: LanguageOption[] = useMemo(() => {
+    const extension = editor.extensionManager.extensions.find(
+      (ext) => ext.name === "codeBlock",
+    );
+    return extension?.options?.supportedLanguages ?? [];
+  }, [editor]);
 
   const filteredOptions = useMemo(() => {
     if (!search) return options;
@@ -41,30 +39,31 @@ export const LanguageDropdown = ({
     return options.filter((item) => {
       const label = item.label.toLowerCase();
       const value = item.value.toLowerCase();
+      const alias = item.alias.toLowerCase();
 
-      return label.includes(q) || value.includes(q);
+      return label.includes(q) || value.includes(q) || alias.includes(q);
     });
   }, [options, search]);
 
   const currentLanguage = useMemo(
     () => options.find((item) => item.value === value)?.label || "Auto",
-    [options, value]
+    [options, value],
   );
 
   const maxHeight = useMemo(
     () =>
       Math.min(
-        (editor?.view.dom.parentElement?.clientHeight || 400) * 0.5,
-        300
+        (editor.options.element as HTMLElement)?.clientHeight * 0.7,
+        400,
       ),
-    [editor?.view.dom.parentElement]
+    [editor.options.element],
   );
 
   const handleSearchChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value);
     },
-    []
+    [],
   );
 
   const handleSelect = useCallback(
@@ -72,7 +71,7 @@ export const LanguageDropdown = ({
       onSelect(selectedValue);
       setSearch("");
     },
-    [onSelect]
+    [onSelect],
   );
 
   return (
@@ -100,13 +99,7 @@ export const LanguageDropdown = ({
         value={search}
         onChange={handleSearchChange}
       /> */}
-      <div
-        className="code-list"
-        style={{
-          maxHeight: `${maxHeight - 60}px`,
-          overflowY: "auto",
-        }}
-      >
+      <div className="code-list" style={{ overflowY: "auto" }}>
         {filteredOptions.length === 0 ? (
           <div>No languages found</div>
         ) : (

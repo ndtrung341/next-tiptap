@@ -25,6 +25,7 @@
   &-operator,
   &-variable,
   &-selector-attr,
+  &-selector-class,
   &-selector-id,
   &-variable.language_ {
     color: var(--rte-hljs-variable);
@@ -52,6 +53,7 @@
   }
 
   // Markup and tags
+  &-tag,
   &-name,
   &-quote,
   &-selector-tag,

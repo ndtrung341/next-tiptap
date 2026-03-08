@@ -6,11 +6,12 @@ import { createHighlighter, isSpecialLanguage } from "@/lib/shiki";
 import type { Highlighter, BundledLanguage } from "@/lib/shiki";
 
 let highlighter: Highlighter | undefined;
+let highlighterPromise: Promise<void> | undefined;
 let parser: Parser | undefined;
 
-const lazyParser: Parser = (options) => {
-  if (!highlighter) {
-    return createHighlighter({
+const loadHighlighter = () => {
+  if (!highlighterPromise) {
+    highlighterPromise = createHighlighter({
       themes: ["github-light", "github-dark"],
       langs: ["text"],
     }).then((h) => {
@@ -18,9 +19,23 @@ const lazyParser: Parser = (options) => {
     });
   }
 
+  return highlighterPromise;
+};
+
+/**
+ * Lazy load highlighter and highlighter languages.
+ *
+ * When the highlighter or the required language is not loaded, it returns a
+ * promise that resolves when the highlighter or the language is loaded.
+ * Otherwise, it returns an array of decorations.
+ */
+const lazyParser: Parser = (options) => {
+  if (!highlighter) {
+    return loadHighlighter();
+  }
+
   const language = options.language as BundledLanguage;
   const loadedLanguages = highlighter.getLoadedLanguages();
-
   if (!isSpecialLanguage(language) && !loadedLanguages.includes(language)) {
     return highlighter.loadLanguage(language);
   }

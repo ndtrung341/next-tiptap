@@ -49,8 +49,8 @@ export const supportedLanguages = {
     name: "C#",
     aliases: ["csharp", "cs"],
   },
-  html: {
-    name: "HTML",
+  xml: {
+    name: "HTML, XML",
     aliases: ["html", "xml"],
   },
   css: {
@@ -72,6 +72,10 @@ export const supportedLanguages = {
   bash: {
     name: "Bash",
     aliases: ["bash", "sh", "shell"],
+  },
+  makefile: {
+    name: "Makefile",
+    aliases: ["makefile", "make"],
   },
   sql: {
     name: "SQL",
