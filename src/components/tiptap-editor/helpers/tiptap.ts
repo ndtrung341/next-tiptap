@@ -12,7 +12,7 @@ import type { Content, DOMNode, Editor } from "@tiptap/react";
  */
 export const isValidSelection = (
   editor: Editor | null,
-  excludeNodeTypes: string[] = []
+  excludeNodeTypes: string[] = [],
 ): boolean => {
   if (!editor) return false;
 
@@ -109,7 +109,7 @@ export function getSelectedDOM(editor: Editor | null) {
  */
 export function getClosestDOM(
   editor: Editor | null,
-  predicate: (node: DOMNode) => boolean
+  predicate: (node: DOMNode) => boolean,
 ): DOMNode | null {
   if (!editor) return null;
 
@@ -157,7 +157,7 @@ export function getAncestorBoundingRect(editor: Editor | null): DOMRect {
  */
 export function loadInitialContent(
   editor: Editor | null,
-  content: Content
+  content: Content,
 ): boolean {
   if (!editor) return false;
 
@@ -182,16 +182,16 @@ export function loadInitialContent(
 export function getEditorContent(editor: Editor | null, format: "html"): string;
 export function getEditorContent(
   editor: Editor | null,
-  format: "json"
+  format: "json",
 ): Exclude<Content, string>;
 
 export function getEditorContent(
   editor: Editor | null,
-  format?: "html" | "json"
+  format?: "html" | "json",
 ): Content;
 export function getEditorContent(
   editor: Editor | null,
-  format: "html" | "json" = "html"
+  format: "html" | "json" = "html",
 ): Content {
   if (!editor) return null;
 
@@ -210,7 +210,7 @@ export function getEditorContent(
  */
 export function getAnchorNodeAndPos(
   editor: Editor | null,
-  allowEmptySelection: boolean = true
+  allowEmptySelection: boolean = true,
 ): { node: Node; pos: number } | null {
   if (!editor) return null;
 
@@ -242,7 +242,7 @@ export function getAnchorNodeAndPos(
  */
 export function moveNode(
   editor: Editor | null,
-  direction: "up" | "down"
+  direction: "up" | "down",
 ): boolean {
   if (!editor || !editor.isEditable) return false;
 

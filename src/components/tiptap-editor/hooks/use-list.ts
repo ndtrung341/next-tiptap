@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 
-import { isNodeSelection, useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
 // Types
 export type ListType = "bulletList" | "orderedList";
@@ -54,7 +52,7 @@ export function toggleList(editor: Editor | null, type: ListType): boolean {
 
 // Hook
 export function useList(type: ListType) {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,

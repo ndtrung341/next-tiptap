@@ -5,6 +5,7 @@ import { defaultLanguage, getSupportedLanguages } from "@/lib/lowlight";
 import { lowlightPlugin } from "./lowlight-plugin";
 
 export const CodeBlockLowlight = CodeBlock.extend({
+  // @ts-expect-error: parent?.() spread causes optional/required mismatch
   addOptions() {
     return {
       ...this.parent?.(),

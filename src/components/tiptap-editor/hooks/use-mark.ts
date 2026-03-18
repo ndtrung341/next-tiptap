@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 
-import { useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
 // Types
 export type MarkType =
@@ -34,7 +32,7 @@ export function toggleMark(editor: Editor | null, type: MarkType): boolean {
 
 // Hook
 export function useMark(type: MarkType) {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,

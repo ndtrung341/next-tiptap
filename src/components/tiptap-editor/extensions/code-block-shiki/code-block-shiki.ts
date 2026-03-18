@@ -5,6 +5,7 @@ import { defaultLanguage, getSupportedLanguages } from "@/lib/shiki";
 import { shikiPlugin } from "./shiki-plugin";
 
 export const CodeBlockShiki = CodeBlock.extend({
+  // @ts-expect-error: parent?.() spread causes optional/required mismatch
   addOptions() {
     return {
       ...this.parent?.(),

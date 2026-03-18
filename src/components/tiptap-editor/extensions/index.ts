@@ -9,8 +9,10 @@ import { StarterKit } from "@tiptap/starter-kit";
 import { CellAlign } from "./cell-align";
 import { CodeBlockLowlight } from "./code-block-lowlight";
 import { CodeBlockShiki } from "./code-block-shiki";
+import { FullScreen } from "./full-screen";
 import { ImageFigure } from "./image";
 import { Link } from "./link";
+import { SourceView } from "./source-view";
 import { Youtube } from "./youtube";
 
 type ExtensionConfig = {
@@ -62,6 +64,8 @@ export function createExtensions({ placeholder }: ExtensionConfig) {
     // CodeBlockLowlight,
     CodeBlockShiki,
     Youtube,
+    FullScreen,
+    SourceView,
   ];
 }
 

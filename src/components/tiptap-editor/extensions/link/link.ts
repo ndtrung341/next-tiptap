@@ -22,6 +22,7 @@ export interface LinkStorage {
 }
 
 export const Link = TiptapLink.extend({
+  // @ts-expect-error: parent?.() spread causes optional/required mismatch
   addOptions() {
     return {
       ...this.parent?.(),

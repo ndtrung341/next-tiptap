@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useEditorState } from "@tiptap/react";
+import { useTiptapState } from "@tiptap/react";
 
 import {
   canToggleMark,
@@ -8,7 +8,6 @@ import {
   type MarkType,
 } from "../../hooks/use-mark";
 import { MenuButton } from "../menu-button";
-import { useTiptapEditor } from "../provider";
 import CodeButton from "./code-button";
 import StrikeButton from "./strike-button";
 import SubscriptButton from "./subscript-button";
@@ -19,21 +18,14 @@ import { Toolbar } from "../ui/toolbar";
 const MORE_MARKS: MarkType[] = ["strike", "superscript", "subscript", "code"];
 
 const MoreFormatPopover = () => {
-  const { editor } = useTiptapEditor();
+  const editorState = useTiptapState(({ editor }) => {
+    const isAnyActive = MORE_MARKS.some((mark) => isMarkActive(editor, mark));
+    const canToggleAny = MORE_MARKS.some((mark) => canToggleMark(editor, mark));
 
-  const editorState = useEditorState({
-    editor,
-    selector({ editor }) {
-      const isAnyActive = MORE_MARKS.some((mark) => isMarkActive(editor, mark));
-      const canToggleAny = MORE_MARKS.some((mark) =>
-        canToggleMark(editor, mark)
-      );
-
-      return {
-        isAnyActive,
-        canToggleAny,
-      };
-    },
+    return {
+      isAnyActive,
+      canToggleAny,
+    };
   });
 
   return (

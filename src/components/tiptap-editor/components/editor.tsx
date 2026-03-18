@@ -6,90 +6,83 @@ import React, {
   useMemo,
 } from "react";
 
-import { useEditor, type Editor, type Content } from "@tiptap/react";
+import {
+  useEditor,
+  TiptapContent,
+  Tiptap as TiptapProvider,
+  type Editor,
+  type Content,
+  type UseEditorOptions,
+} from "@tiptap/react";
 
-import { DragHandle } from "./drag-handle";
-import { MenuBar } from "./menu-bar";
-import { Menus } from "./menus";
-import { StatusBar } from "./status-bar";
+import DragHandle from "./drag-handle";
+import MenuBar from "./menu-bar";
+import Menus from "./menus";
+import Resizer from "./resizer";
+import StatusBar from "./status-bar";
 import { createExtensions } from "../extensions";
-import { TiptapProvider } from "./provider";
-import { Resizer } from "./resizer";
 import { getEditorContent } from "../helpers/tiptap";
 import { cssVar, throttle } from "../helpers/utils";
 
-import type { EditorProps } from "@tiptap/pm/view";
-
 import "../styles/index.scss";
 
-export type TiptapEditorProps = {
-  content?: Content;
-  readonly?: boolean;
+export type TiptapEditorProps2 = Omit<
+  UseEditorOptions,
+  "onUpdate" | "extensions"
+> & {
   disabled?: boolean;
   minHeight?: string | number;
   maxHeight?: string | number;
   maxWidth?: string | number;
   placeholder?: string | Record<string, string>;
   output: "html" | "json";
-  ssr?: boolean;
-  editorProps?: EditorProps;
-  throttleDelay?: number;
+  delay?: number;
   onChange?: (value: Content) => void;
 };
 
 export type TiptapEditorRef = Editor | null;
 
-const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(
+const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps2>(
   (props, ref) => {
     const {
-      ssr = false,
       output = "html",
-      readonly = false,
+      editable = true,
       disabled = false,
+      delay = 1500,
+      immediatelyRender = false,
       minHeight = 320,
-      placeholder,
-      content,
       maxHeight,
       maxWidth,
-      editorProps,
-      throttleDelay = 1500,
+      placeholder,
       onChange,
+      ...restProps
     } = props;
-    const isEditable = !readonly && !disabled;
+    const isEditable = editable && !disabled;
 
     const throttledUpdate = useCallback(
       throttle(({ editor }: { editor: Editor }) => {
         if (!onChange) return;
         const content = getEditorContent(editor, output);
         onChange(content);
-      }, throttleDelay),
-      [output, throttleDelay]
+      }, delay),
+      [output, delay],
     );
-
-    // const updateContent = useCallback(
-    //   ({ editor }: { editor: Editor }) => {
-    //     if (!onChange) return;
-    //     const content = getEditorContent(editor, output);
-    //     onChange(content);
-    //   },
-    //   [output, onChange]
-    // );
 
     const extensions = useMemo(
       () => createExtensions({ placeholder }),
-      [placeholder]
+      [placeholder],
     );
 
     const editor = useEditor({
-      content,
-      extensions,
+      ...restProps,
       editable: isEditable,
-      immediatelyRender: ssr,
+      extensions,
+      immediatelyRender,
       editorProps: {
-        ...editorProps,
+        ...restProps.editorProps,
         attributes: {
           spellcheck: "false",
-          ...editorProps?.attributes,
+          ...restProps.editorProps?.attributes,
         },
       },
       onUpdate: throttledUpdate,
@@ -114,17 +107,23 @@ const TiptapEditor = forwardRef<TiptapEditorRef, TiptapEditorProps>(
     }
 
     return (
-      <TiptapProvider
-        editor={editor}
-        slotBefore={<MenuBar />}
-        slotAfter={<StatusBar />}
-      >
-        <Menus />
-        <Resizer />
-        <DragHandle />
+      <TiptapProvider editor={editor}>
+        <div className="rte-editor">
+          <div className="rte-editor__container">
+            <MenuBar />
+
+            <TiptapContent className="rte-editor__content">
+              <Menus />
+              <DragHandle />
+              <Resizer />
+            </TiptapContent>
+
+            <StatusBar />
+          </div>
+        </div>
       </TiptapProvider>
     );
-  }
+  },
 );
 
 TiptapEditor.displayName = "TiptapEditor";

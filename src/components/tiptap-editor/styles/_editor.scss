@@ -16,11 +16,7 @@
   box-shadow: $shadow-1;
   @include font-size("sm");
 
-  * {
-    @include custom-scrollbar;
-  }
-
-  &--fullscreen {
+  &--full-screen {
     --rte-editor-max-height: auto;
     --rte-editor-min-height: auto;
     position: fixed;
@@ -31,16 +27,25 @@
   &__container {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    height: 100%;
+    // min-height: $editor-min-height;
+    // max-height: $editor-max-height;
+  }
+
+  &__content {
+    cursor: text;
     position: relative;
+    flex-direction: column;
     min-height: $editor-min-height;
     max-height: $editor-max-height;
+    display: flex;
+    flex: 1;
     background-color: $bg-color;
     color: $fg-color;
     font-size: $editor-font-size;
     line-height: $editor-line-height;
     overflow: auto;
-    cursor: text;
+    @include custom-scrollbar;
 
     & > .ProseMirror {
       flex-grow: 1;
@@ -54,18 +59,42 @@
       box-shadow: 0 0 0 2px $primary-color;
     }
   }
+
+  .rte-source__content {
+    position: relative;
+    display: flex;
+    flex: 1;
+    min-height: $editor-min-height;
+    max-height: $editor-max-height;
+    overflow: auto;
+    @include custom-scrollbar;
+
+    &:has(.cm-focused) {
+      border-radius: $radius-sm;
+      box-shadow: 0 0 0 2px $primary-color;
+    }
+  }
 }
 
 // ============================================================================
 // MENU & STATUS BAR
 // ============================================================================
-
 .rte-menu-bar,
 .rte-status-bar {
   display: flex;
   align-items: center;
   min-height: 2.75rem;
-  padding: 0.125rem;
+  padding: 0.25rem 0.375rem;
+  flex-shrink: 0;
+  background-color: $bg-color;
+}
+
+.rte-source__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.655rem 0.375rem;
+  flex-shrink: 0;
   background-color: $bg-color;
 }
 

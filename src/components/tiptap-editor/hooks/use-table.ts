@@ -1,9 +1,6 @@
 import { useCallback } from "react";
 
-import { CellSelection } from "@tiptap/pm/tables";
-import { useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
 // Types
 export interface TableInsertOptions {
@@ -49,7 +46,7 @@ export function isTableActive(editor: Editor | null): boolean {
 
 export function canExecuteTableAction(
   editor: Editor | null,
-  action: TableAction
+  action: TableAction,
 ): boolean {
   if (!editor || !editor.isEditable || !isTableActive(editor)) return false;
 
@@ -83,7 +80,7 @@ export function canExecuteTableAction(
 
 export function insertTable(
   editor: Editor | null,
-  options: TableInsertOptions
+  options: TableInsertOptions,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!canInsertTable(editor)) return false;
@@ -101,7 +98,7 @@ export function insertTable(
 
 export function executeTableAction(
   editor: Editor | null,
-  action: TableAction
+  action: TableAction,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!canExecuteTableAction(editor, action)) return false;
@@ -138,7 +135,7 @@ export function executeTableAction(
 
 // Hook
 export function useTable() {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,
@@ -153,67 +150,67 @@ export function useTable() {
 
   const insert = useCallback(
     (options: TableInsertOptions) => insertTable(editor, options),
-    [editor]
+    [editor],
   );
 
   const addRowBefore = useCallback(
     () => executeTableAction(editor, "addRowBefore"),
-    [editor]
+    [editor],
   );
 
   const addRowAfter = useCallback(
     () => executeTableAction(editor, "addRowAfter"),
-    [editor]
+    [editor],
   );
 
   const addColumnBefore = useCallback(
     () => executeTableAction(editor, "addColumnBefore"),
-    [editor]
+    [editor],
   );
 
   const addColumnAfter = useCallback(
     () => executeTableAction(editor, "addColumnAfter"),
-    [editor]
+    [editor],
   );
 
   const deleteRow = useCallback(
     () => executeTableAction(editor, "deleteRow"),
-    [editor]
+    [editor],
   );
 
   const deleteColumn = useCallback(
     () => executeTableAction(editor, "deleteColumn"),
-    [editor]
+    [editor],
   );
 
   const toggleHeaderRow = useCallback(
     () => executeTableAction(editor, "toggleHeaderRow"),
-    [editor]
+    [editor],
   );
 
   const toggleHeaderColumn = useCallback(
     () => executeTableAction(editor, "toggleHeaderColumn"),
-    [editor]
+    [editor],
   );
 
   const mergeCells = useCallback(
     () => executeTableAction(editor, "mergeCells"),
-    [editor]
+    [editor],
   );
 
   const splitCell = useCallback(
     () => executeTableAction(editor, "splitCell"),
-    [editor]
+    [editor],
   );
 
   const deleteTable = useCallback(
     () => executeTableAction(editor, "deleteTable"),
-    [editor]
+    [editor],
   );
 
   const toggleCellAlignment = useCallback(
     (align: CellAlign) => editor.chain().focus().toggleCellAlign(align).run(),
-    [editor]
+    [editor],
   );
 
   return {

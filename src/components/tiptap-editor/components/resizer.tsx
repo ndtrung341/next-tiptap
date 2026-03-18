@@ -2,9 +2,8 @@ import React, { useMemo } from "react";
 
 import { createPortal } from "react-dom";
 
-import { type Editor, useEditorState } from "@tiptap/react";
+import { type Editor, useEditorState, useTiptap } from "@tiptap/react";
 
-import { useTiptapEditor } from "./provider";
 import { useResizable } from "../hooks/use-resizable";
 
 interface ResizeProps {
@@ -13,10 +12,15 @@ interface ResizeProps {
 
 const getActiveNodeType = (
   editor: Editor,
-  nodeTypes: string[]
+  nodeTypes: string[],
 ): string | null => {
   if (!editor.isFocused || !editor.isEditable) return null;
   return nodeTypes.find((nodeType) => editor.isActive(nodeType)) || null;
+};
+
+const getContentWidth = (el: Element) => {
+  const { paddingLeft, paddingRight } = getComputedStyle(el);
+  return el.clientWidth - parseFloat(paddingLeft) - parseFloat(paddingRight);
 };
 
 const selectorMap = {
@@ -28,11 +32,11 @@ const selectorMap = {
 export const Resizer = ({
   nodeTypes = ["image", "imageFigure", "youtube"],
 }: ResizeProps) => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,
-    selector: ({ editor }) => {
+    selector({ editor }) {
       const activeType = getActiveNodeType(editor, nodeTypes);
       if (!activeType) return null;
 
@@ -60,9 +64,18 @@ export const Resizer = ({
     return target;
   }, [editorState]);
 
+  // const { rect, startResize } = useResizable(targetElement, {
+  //   keepRatio: true,
+  //   maxWidth: editor.view.dom.firstElementChild?.clientWidth,
+  //   onResizeEnd: (size: number) => {
+  //     if (!editor || !editorState) return;
+  //     editor.commands.updateAttributes(editorState.type!, { width: size });
+  //   },
+  // });
+
   const { rect, startResize } = useResizable(targetElement, {
     keepRatio: true,
-    maxWidth: editor.view.dom.firstElementChild?.clientWidth,
+    maxWidth: getContentWidth(editor.view.dom),
     onResizeEnd: (size: number) => {
       if (!editor || !editorState) return;
       editor.commands.updateAttributes(editorState.type!, { width: size });
@@ -71,7 +84,7 @@ export const Resizer = ({
 
   const renderHandle = (
     cursor: "nw-resize" | "sw-resize" | "ne-resize" | "se-resize",
-    styles: React.CSSProperties
+    styles: React.CSSProperties,
   ) => {
     const side: "left" | "right" = cursor.includes("w") ? "left" : "right";
 
@@ -87,7 +100,7 @@ export const Resizer = ({
     );
   };
 
-  if (!editorState || !editor.view.dom.parentElement) {
+  if (!editorState || !editor.options.element) {
     return null;
   }
 
@@ -129,9 +142,11 @@ export const Resizer = ({
         })}
       </div>
     </div>,
-    editor.view.dom.parentElement
+    editor.options.element as HTMLElement,
   );
 };
+
+export default Resizer;
 
 // import { Editor, useCurrentEditor, useEditorState } from "@tiptap/react";
 // import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";

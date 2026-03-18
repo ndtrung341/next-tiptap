@@ -13,9 +13,8 @@ import {
   type Strategy,
   type Middleware,
 } from "@floating-ui/react-dom";
-import { type Editor } from "@tiptap/react";
+import { useTiptap, type Editor } from "@tiptap/react";
 
-import { useTiptapEditor } from "./provider";
 import { getSelectionBoundingRect, isValidSelection } from "../helpers/tiptap";
 import { cn } from "../helpers/utils";
 
@@ -48,7 +47,7 @@ export const BubbleMenu = ({
   getReferenceClientRect = getSelectionBoundingRect,
   ...props
 }: BubbleMenuProps) => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -65,7 +64,7 @@ export const BubbleMenu = ({
       newOpen ? onShow?.() : onHide?.();
       setIsOpen(newOpen);
     },
-    [onShow, onHide]
+    [onShow, onHide],
   );
 
   const updateMenu = useCallback(() => {
@@ -138,7 +137,7 @@ export const BubbleMenu = ({
     return null;
   }
 
-  const portalRoot = editor.view.dom.parentElement || document.body;
+  const portalRoot = (editor.options.element as HTMLElement) || document.body;
 
   return createPortal(
     <div
@@ -150,7 +149,7 @@ export const BubbleMenu = ({
       }}
       {...props}
     />,
-    portalRoot
+    portalRoot,
   );
 };
 

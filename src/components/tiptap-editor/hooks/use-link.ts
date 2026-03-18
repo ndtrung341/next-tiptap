@@ -1,8 +1,11 @@
 import { useCallback } from "react";
 
-import { getMarkRange, useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import {
+  getMarkRange,
+  useEditorState,
+  useTiptap,
+  type Editor,
+} from "@tiptap/react";
 
 // Type
 export interface LinkData {
@@ -47,7 +50,7 @@ export function getCurrentLink(editor: Editor | null): LinkData | null {
 
 // Hook
 export function useLink() {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,
@@ -79,7 +82,7 @@ export function useLink() {
 
       return chain.extendMarkRange("link").setLink({ href }).run();
     },
-    [editor]
+    [editor],
   );
 
   const unsetLink = useCallback(() => {

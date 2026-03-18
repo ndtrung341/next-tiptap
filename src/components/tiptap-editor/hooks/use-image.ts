@@ -1,9 +1,7 @@
 import { useCallback } from "react";
 
 import { NodeSelection, TextSelection } from "@tiptap/pm/state";
-import { useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
 // Types
 export type ImageAttributes = {
@@ -65,7 +63,7 @@ export function getCurrentImageData(editor: Editor | null): ImageData | null {
 
 export function insertImage(
   editor: Editor | null,
-  options: ImageInsertOptions
+  options: ImageInsertOptions,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!canInsertImage(editor)) return false;
@@ -75,7 +73,7 @@ export function insertImage(
 
 export function updateImageAttributes(
   editor: Editor | null,
-  attributes: Partial<ImageAttributes>
+  attributes: Partial<ImageAttributes>,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!isImageActive(editor)) return false;
@@ -86,8 +84,6 @@ export function updateImageAttributes(
 export function removeImage(editor: Editor | null): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!isImageActive(editor)) return false;
-  console.log(123);
-
   return editor.chain().focus().removeImage().run();
 }
 
@@ -133,7 +129,7 @@ export function downloadImage(src: string, filename?: string): void {
 
 // Hook
 export function useImage() {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,
@@ -155,28 +151,28 @@ export function useImage() {
     (options: ImageInsertOptions) => {
       return insertImage(editor, options);
     },
-    [editor]
+    [editor],
   );
 
   const updateAttributes = useCallback(
     (attributes: Partial<ImageAttributes>) => {
       return updateImageAttributes(editor, attributes);
     },
-    [editor]
+    [editor],
   );
 
   const setAlt = useCallback(
     (alt: string) => {
       return updateAttributes({ alt });
     },
-    [updateAttributes]
+    [updateAttributes],
   );
 
   const setSize = useCallback(
     (width: number | null) => {
       return updateAttributes({ width: width || undefined });
     },
-    [updateAttributes]
+    [updateAttributes],
   );
 
   const toggleCaption = useCallback(() => {

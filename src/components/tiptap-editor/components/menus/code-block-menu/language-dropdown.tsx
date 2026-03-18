@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useCallback, memo } from "react";
 
+import { useTiptap } from "@tiptap/react";
+
 import { MenuButton } from "../../menu-button";
-import { useTiptapEditor } from "../../provider";
 import Icon from "../../ui/icon";
 import { PopoverClose } from "../../ui/popover";
 import SearchInput from "../../ui/search-input";
@@ -21,7 +22,7 @@ export const LanguageDropdown = ({
   value,
   onSelect,
 }: LanguageDropdownProps) => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
   const [search, setSearch] = useState("");
 
   const options: LanguageOption[] = useMemo(() => {

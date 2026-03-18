@@ -1,8 +1,7 @@
 import { useCallback } from "react";
 
-import { isNodeSelection, useEditorState, type Editor } from "@tiptap/react";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
-import { useTiptapEditor } from "../components/provider";
 import { getClosestDOM } from "../helpers/tiptap";
 
 // Utility functions
@@ -44,7 +43,7 @@ export function getCodeBlockContent(editor: Editor | null): string {
 
 // Hook
 export function useCodeBlock() {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,
@@ -70,7 +69,7 @@ export function useCodeBlock() {
         .updateAttributes("codeBlock", { language })
         .run();
     },
-    [editor]
+    [editor],
   );
 
   const deleteBlock = useCallback(() => {

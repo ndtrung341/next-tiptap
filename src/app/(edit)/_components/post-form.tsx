@@ -83,7 +83,7 @@ export default function PostForm({ post, editable, onSave }: PostFormProps) {
           render={({ field }) => (
             <TiptapEditor
               ref={editorRef}
-              readonly={!editable}
+              editable={editable}
               output="html"
               content={post?.html}
               minHeight={320}

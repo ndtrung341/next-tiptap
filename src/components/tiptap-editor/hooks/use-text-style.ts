@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 
-import { useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
 // Types
 export type TextStyleProperty = "color" | "backgroundColor";
@@ -15,7 +13,7 @@ export interface TextStyleAttributes {
 // Utility functions
 export function canSetTextStyle(
   editor: Editor | null,
-  property: TextStyleProperty
+  property: TextStyleProperty,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
 
@@ -31,7 +29,7 @@ export function canSetTextStyle(
 
 export function getActiveTextStyle(
   editor: Editor | null,
-  property: TextStyleProperty
+  property: TextStyleProperty,
 ): string | undefined {
   if (!editor) return undefined;
 
@@ -42,7 +40,7 @@ export function getActiveTextStyle(
 export function isTextStyleActive(
   editor: Editor | null,
   property: TextStyleProperty,
-  value?: string
+  value?: string,
 ): boolean {
   if (!editor) return false;
 
@@ -57,7 +55,7 @@ export function isTextStyleActive(
 
 export function setTextStyle(
   editor: Editor | null,
-  attributes: TextStyleAttributes
+  attributes: TextStyleAttributes,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
   return editor.chain().focus().setMark("textStyle", attributes).run();
@@ -65,7 +63,7 @@ export function setTextStyle(
 
 export function unsetTextStyle(
   editor: Editor | null,
-  property: TextStyleProperty
+  property: TextStyleProperty,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
 
@@ -80,7 +78,7 @@ export function unsetTextStyle(
 export function toggleTextStyle(
   editor: Editor | null,
   property: TextStyleProperty,
-  value: string
+  value: string,
 ): boolean {
   if (!editor?.isEditable) return false;
 
@@ -95,7 +93,7 @@ export function toggleTextStyle(
 
 // Hook
 export function useTextStyle(property: TextStyleProperty) {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,
@@ -111,7 +109,7 @@ export function useTextStyle(property: TextStyleProperty) {
     (value: string) => {
       return setTextStyle(editor, { [property]: value });
     },
-    [editor, property]
+    [editor, property],
   );
 
   const unsetValue = useCallback(() => {
@@ -122,7 +120,7 @@ export function useTextStyle(property: TextStyleProperty) {
     (value: string) => {
       return toggleTextStyle(editor, property, value);
     },
-    [editor, property]
+    [editor, property],
   );
 
   return {

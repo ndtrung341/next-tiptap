@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo, useState } from "react";
 
+import { type Middleware } from "@floating-ui/dom";
 import TiptapDragHandle from "@tiptap/extension-drag-handle-react";
+import { useTiptap } from "@tiptap/react";
 
 import MenuButton from "./menu-button";
-import { useTiptapEditor } from "./provider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,25 +14,14 @@ import {
 } from "./ui/dropdown";
 import { getSelectedDOM, moveNode } from "../helpers/tiptap";
 
-import type { Middleware } from "@floating-ui/dom";
 import type { Node as TiptapNode } from "@tiptap/pm/model";
 
+
 export const DragHandle = () => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
   const [node, setNode] = useState<TiptapNode | null>(null);
   const [nodePos, setNodePos] = useState<number>(-1);
   const [open, setOpen] = useState(false);
-
-  const scrollToNode = useCallback(() => {
-    requestAnimationFrame(() => {
-      const domNode = getSelectedDOM(editor);
-      domNode?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "nearest",
-      });
-    });
-  }, [editor]);
 
   const menuPosition = useMemo(() => {
     return {
@@ -61,33 +51,59 @@ export const DragHandle = () => {
   const handleMove = useCallback(
     (direction: "up" | "down") => {
       const success = moveNode(editor, direction);
-      if (success) {
-        setOpen(false);
-        scrollToNode();
-      }
-    },
-    [editor]
-  );
+      if (!success) return;
 
+      const domNode = getSelectedDOM(editor);
+      if (!domNode) return;
+
+      const rect = domNode.getBoundingClientRect();
+
+      requestAnimationFrame(() => {
+        // Radix locks pointer-events on body while dropdown is open — temporarily clear it
+        // so the synthetic mousemove can fire without being blocked.
+        const originalStyle = document.body.style.pointerEvents;
+        document.body.style.pointerEvents = "";
+
+        domNode.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+
+        // Simulate a mousemove at the moved node's position so TiptapDragHandle
+        // recomputes and snaps to the new node location.
+        editor.view.dom.dispatchEvent(
+          new MouseEvent("mousemove", {
+            bubbles: true,
+            cancelable: true,
+            clientX: rect.left + rect.width / 2,
+            clientY: rect.top + rect.height / 2,
+          }),
+        );
+
+        // Restore the original pointer-events so can still dismiss the dropdown on outside clicks.
+        requestAnimationFrame(() => {
+          document.body.style.pointerEvents = originalStyle;
+        });
+      });
+    },
+    [editor],
+  );
   const handleCopy = useCallback(async () => {
     if (!editor || !node || nodePos < 0) return false;
 
     const { state, view } = editor;
-
     const slice = state.doc.slice(nodePos, nodePos + node.nodeSize);
-
     const textContent = slice.content.textBetween(0, slice.size, "\n");
     const htmlContent = view.serializeForClipboard(slice).dom.innerHTML;
 
-    const blobText = new Blob([textContent], { type: "text/plain" });
-    const blobHtml = new Blob([htmlContent], { type: "text/html" });
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/plain": new Blob([textContent], { type: "text/plain" }),
+        "text/html": new Blob([htmlContent], { type: "text/html" }),
+      }),
+    ]);
 
-    const clipboardItem = new ClipboardItem({
-      "text/plain": blobText,
-      "text/html": blobHtml,
-    });
-
-    await navigator.clipboard.write([clipboardItem]);
     return true;
   }, [editor, node, nodePos]);
 
@@ -96,7 +112,7 @@ export const DragHandle = () => {
 
     return editor.commands.insertContentAt(
       nodePos + node.nodeSize,
-      node.toJSON()
+      node.toJSON(),
     );
   }, [editor, node, nodePos]);
 
@@ -111,9 +127,7 @@ export const DragHandle = () => {
 
   const handleCut = useCallback(async () => {
     const success = await handleCopy();
-    if (success) {
-      handleDelete();
-    }
+    if (success) handleDelete();
   }, [editor, node, nodePos]);
 
   if (!editor) return null;
@@ -123,6 +137,7 @@ export const DragHandle = () => {
       editor={editor}
       onNodeChange={handleNodeChange}
       computePositionConfig={menuPosition}
+      className="duration-200 ease-out"
     >
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <div style={{ position: "relative", cursor: "grab" }}>
@@ -210,3 +225,5 @@ export const DragHandle = () => {
     </TiptapDragHandle>
   );
 };
+
+export default DragHandle;

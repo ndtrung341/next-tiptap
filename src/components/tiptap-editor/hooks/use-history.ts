@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 
-import { useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
 // Types
 export type UndoRedoAction = "undo" | "redo";
@@ -10,7 +8,7 @@ export type UndoRedoAction = "undo" | "redo";
 // Utility functions
 export function canUndoRedo(
   editor: Editor | null,
-  action: UndoRedoAction
+  action: UndoRedoAction,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
 
@@ -19,7 +17,7 @@ export function canUndoRedo(
 
 export function executeUndoRedo(
   editor: Editor | null,
-  action: UndoRedoAction
+  action: UndoRedoAction,
 ): boolean {
   if (!editor || !editor.isEditable) return false;
   if (!canUndoRedo(editor, action)) return false;
@@ -29,7 +27,7 @@ export function executeUndoRedo(
 
 // Hook
 export function useHistory() {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,

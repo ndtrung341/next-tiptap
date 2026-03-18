@@ -30,6 +30,10 @@ const eslintConfig = [
       "react/self-closing-comp": ["error", { component: true, html: true }],
       "react-hooks/exhaustive-deps": "warn",
 
+      "@typescript-eslint/no-empty-object-type": [
+        "warn",
+        { allowInterfaces: "always" },
+      ],
       "@typescript-eslint/no-unused-expressions": "warn",
       "@typescript-eslint/no-unused-vars": [
         "warn",

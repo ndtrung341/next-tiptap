@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Transaction } from "@tiptap/pm/state";
-import { useEditorState } from "@tiptap/react";
+import { useEditorState, useTiptap } from "@tiptap/react";
 
 import { CodeBlockMenu } from "./code-block-menu";
 import { ImageMenu } from "./image-menu";
@@ -16,10 +16,9 @@ import { isImageActive } from "../../hooks/use-image";
 import { isLinkActive } from "../../hooks/use-link";
 import { isTableActive } from "../../hooks/use-table";
 import { BubbleMenu } from "../bubble-menu";
-import { useTiptapEditor } from "../provider";
 
 export const Menus = () => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
   const [hideBubbleMenu, setHideBubbleMenu] = useState(false);
 
   const activeMenu = useEditorState({

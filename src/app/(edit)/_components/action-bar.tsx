@@ -37,7 +37,7 @@ const ActionBar = ({
             }`}
           />
           <div
-            className={`absolute top-[2px] left-[2px] w-4 h-4 bg-white rounded-full transition-transform ${
+            className={`absolute top-0.5 left-0.5 size-4 bg-white rounded-full transition-transform ${
               editable ? "translate-x-4" : ""
             }`}
           />

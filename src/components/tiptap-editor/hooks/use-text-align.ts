@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 
-import { useEditorState, type Editor } from "@tiptap/react";
-
-import { useTiptapEditor } from "../components/provider";
+import { useEditorState, useTiptap, type Editor } from "@tiptap/react";
 
 // Type
 export type TextAlignType = "left" | "right" | "justify" | "center";
@@ -10,7 +8,7 @@ export type TextAlignType = "left" | "right" | "justify" | "center";
 // Utility functions
 export function canSetTextAlign(
   editor: Editor | null,
-  alignment: TextAlignType
+  alignment: TextAlignType,
 ) {
   if (!editor || !editor.isEditable) return false;
   if (editor.isActive("table")) return false;
@@ -19,7 +17,7 @@ export function canSetTextAlign(
 
 export function isTextAlignActive(
   editor: Editor | null,
-  alignment: TextAlignType
+  alignment: TextAlignType,
 ) {
   if (!editor) return false;
   return editor.isActive({ textAlign: alignment });
@@ -33,7 +31,7 @@ export function setTextAlign(editor: Editor | null, alignment: TextAlignType) {
 
 // Hook
 export function useTextAlign(alignment: TextAlignType) {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,

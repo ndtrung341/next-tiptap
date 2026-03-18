@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useEditorState } from "@tiptap/react";
+import { useEditorState, useTiptap } from "@tiptap/react";
 
 import {
   canSetTextAlign,
@@ -8,7 +8,6 @@ import {
   type TextAlignType,
 } from "../../hooks/use-text-align";
 import { MenuButton } from "../menu-button";
-import { useTiptapEditor } from "../provider";
 import AlignCenterButton from "./align-center-button";
 import AlignJustifyButton from "./align-justify-button";
 import AlignLeftButton from "./align-left-button";
@@ -27,7 +26,7 @@ const ALIGN_ICONS: Record<TextAlignType, IconProps["name"]> = {
 };
 
 const TextAlignPopover = () => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
 
   const editorState = useEditorState({
     editor,
@@ -35,7 +34,7 @@ const TextAlignPopover = () => {
       const current =
         ALIGNMENTS.find((align) => isTextAlignActive(editor, align)) ?? "left";
       const canSetAny = ALIGNMENTS.some((align) =>
-        canSetTextAlign(editor, align)
+        canSetTextAlign(editor, align),
       );
       return { current, canSetAny };
     },

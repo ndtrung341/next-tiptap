@@ -1,11 +1,17 @@
 import React from "react";
 
+import { useEditorState, useTiptap } from "@tiptap/react";
+
 import { MenuButton } from "../menu-button";
-import { useTiptapEditor } from "../provider";
 import { DropdownMenuItem } from "../ui/dropdown";
 
 const InsertDropdown = () => {
-  const { editor } = useTiptapEditor();
+  const { editor } = useTiptap();
+
+  const canInsert = useEditorState({
+    editor,
+    selector: ({ editor }) => editor.isEditable,
+  });
 
   const toggleCodeBlock = () =>
     editor.chain().focus().clearNodes().toggleCodeBlock().run();
@@ -16,7 +22,7 @@ const InsertDropdown = () => {
   const insertYoutube = () => {
     const src = prompt(
       "Embed Youtube Video",
-      "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     );
     if (src) {
       editor.chain().focus().setYoutubeVideo({ src }).run();
@@ -27,7 +33,7 @@ const InsertDropdown = () => {
     <MenuButton
       type="dropdown"
       tooltip="Insert"
-      disabled={!editor?.isEditable}
+      disabled={!canInsert}
       icon="Plus"
       dropdownStyle={{ minWidth: "8rem" }}
     >
